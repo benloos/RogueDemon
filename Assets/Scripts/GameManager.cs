@@ -21,7 +21,10 @@ private void Awake()
         {
             for (int j = 0; j < seed.GetLength(1); j++)
             {
-                System.Diagnostics.Debug.WriteLine(seed[i,j] + " ");
+                if (seed[i,j] >= 0)
+                {
+                    rooms[seed[i, j]].transform.position = new Vector3(i * roomLength, 0, j * roomWidth - roomWidth);
+                }
             }
         }
     }
