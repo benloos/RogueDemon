@@ -99,3 +99,12 @@ Received Import Request.
 Start importing Assets/Scenes using Guid(722ef0324f998f648b613b6b529362e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c73c535a66f8146609efbd675f479a17') in 0.001843 seconds
   Import took 0.004831 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 653.348695 seconds.
+  path: Assets/Scripts/GameManager.cs
+  artifactKey: Guid(04414b9757a39cd429d554954de1c780) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/GameManager.cs using Guid(04414b9757a39cd429d554954de1c780) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ddb44ee6dcc2431945b67aba9b1bf7a') in 0.024889 seconds
+  Import took 0.027790 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
