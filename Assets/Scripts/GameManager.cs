@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     private int[,] seed = new int[,] {
             { -1,  0,  3 },
             { -1, -1,  5 },
-            {  1,  4,  2}
+            {  1,  4,  2 }
         };
 
 private void Awake()

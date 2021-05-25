@@ -5,16 +5,23 @@ using UnityEngine;
 public class DoorOpener : MonoBehaviour
 {
     private float tweenTime = 6f;
-    private float tweenDistance = 8f;
-    private LeanTweenType easeType = LeanTweenType.easeOutCubic;
+    private float tweenDistance = 4.5f;
+    private float initialPosition;
 
     private bool isOpen = false;
+
+    private void Awake()
+    {
+        initialPosition = transform.position.y;
+    }
+
     public void Open()
     {
         if (!isOpen)
         {
             isOpen = true;
-            LeanTween.moveY(gameObject, tweenDistance, tweenTime).setEase(easeType);
+            LeanTween.cancel(gameObject);
+            LeanTween.moveY(gameObject, initialPosition + tweenDistance, tweenTime).setEase(LeanTweenType.easeOutCubic);
         }
     }
 
@@ -23,7 +30,8 @@ public class DoorOpener : MonoBehaviour
         if (isOpen)
         {
             isOpen = false;
-            LeanTween.moveY(gameObject, -tweenDistance, tweenTime).setEase(easeType);
+            LeanTween.cancel(gameObject);
+            LeanTween.moveY(gameObject, initialPosition, tweenTime/5).setEase(LeanTweenType.easeOutBounce);
         }
     }
 }
