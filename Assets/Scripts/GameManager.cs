@@ -57,8 +57,8 @@ public class GameManager : MonoBehaviour
         {
             if (seed[roomCoords.X - 1, roomCoords.Y] > -1)
             {
-                rooms[roomID].GetComponent<RoomManager>().DoorPositiveX.GetComponent<DoorOpener>().Open();
-                rooms[seed[roomCoords.X - 1, roomCoords.Y]].GetComponent<RoomManager>().DoorNegativeX.GetComponent<DoorOpener>().Open();
+                rooms[roomID].GetComponent<RoomManager>().DoorNegativeX.GetComponent<DoorOpener>().Open();
+                rooms[seed[roomCoords.X - 1, roomCoords.Y]].GetComponent<RoomManager>().DoorPositiveX.GetComponent<DoorOpener>().Open();
             }
         }
         if (roomCoords.Y + 1 < seed.GetLength(1))
@@ -73,8 +73,8 @@ public class GameManager : MonoBehaviour
         {
             if (seed[roomCoords.X, roomCoords.Y - 1] > -1)
             {
-                rooms[roomID].GetComponent<RoomManager>().DoorPositiveZ.GetComponent<DoorOpener>().Open();
-                rooms[seed[roomCoords.X, roomCoords.Y - 1]].GetComponent<RoomManager>().DoorNegativeZ.GetComponent<DoorOpener>().Open();
+                rooms[roomID].GetComponent<RoomManager>().DoorNegativeZ.GetComponent<DoorOpener>().Open();
+                rooms[seed[roomCoords.X, roomCoords.Y - 1]].GetComponent<RoomManager>().DoorPositiveZ.GetComponent<DoorOpener>().Open();
             }
         }
     }
