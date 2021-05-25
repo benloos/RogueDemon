@@ -4,37 +4,33 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    private bool roomCleared = false;
-    public bool isCleared() { return roomCleared; }
+    private int roomID;
+    public int getID() { return roomID; }
+    public void setID(int id) { roomID = id; }
 
-    private bool gameIsRunning = false;
+    public bool isCleared = false;
 
-    [SerializeField] private GameObject DoorNegativeX;
-    [SerializeField] private GameObject DoorNegativeZ;
-    [SerializeField] private GameObject DoorPositiveX;
-    [SerializeField] private GameObject DoorPositiveZ;
-
-    private void Start()
-    {
-        DoorNegativeX.GetComponent<DoorOpener>().Open();
-        DoorNegativeZ.GetComponent<DoorOpener>().Open();
-        DoorPositiveX.GetComponent<DoorOpener>().Open();
-        DoorPositiveZ.GetComponent<DoorOpener>().Open();
-    }
+    public GameObject DoorNegativeX;
+    public GameObject DoorNegativeZ;
+    public GameObject DoorPositiveX;
+    public GameObject DoorPositiveZ;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isCleared())
+        if (!isCleared)
         {
             if (other.CompareTag("Player"))
             {
-                DoorNegativeX.GetComponent<DoorOpener>().Close();
-                DoorNegativeZ.GetComponent<DoorOpener>().Close();
-                DoorPositiveX.GetComponent<DoorOpener>().Close();
-                DoorPositiveZ.GetComponent<DoorOpener>().Close();
-
-                gameIsRunning = true;
+                GameManager.current.StartRoom(roomID);
             }
         }
+
+        StartCoroutine(delayedClear());
+    }
+
+    private IEnumerator delayedClear()
+    {
+        yield return new WaitForSeconds(5);
+        GameManager.current.ClearedRoom(roomID);
     }
 }
