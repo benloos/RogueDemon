@@ -97,12 +97,13 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        Coords startLevelArrayCoords = findIndexOfRoom(startRoom);
+        player.transform.position = new Vector3(startLevelArrayCoords.X * roomLength + 1.5f, 2.2f, startLevelArrayCoords.Y * roomWidth - roomWidth / 2);
     }
 
     private void Start()
     {
-        Coords startLevelArrayCoords = findIndexOfRoom(startRoom);
-        player.transform.position = new Vector3(startLevelArrayCoords.X * roomLength + 1.5f, 2.2f, startLevelArrayCoords.Y * roomWidth - roomWidth/2);
+        
     }
 
     public void StartRoom(int id)
