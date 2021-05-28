@@ -10,7 +10,7 @@ public class DoorOpener : MonoBehaviour
 
     private bool isOpen = false;
 
-    private void Start()
+    private void Awake()
     {
         initialPosition = transform.position.y;
     }

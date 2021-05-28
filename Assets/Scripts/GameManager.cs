@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager current;
-    private GameObject player;
 
     [SerializeField] private GameObject[] rooms;
     private int roomLength = 60, roomWidth = 30; // Edges at 0,0 and 60,-30
@@ -14,8 +13,6 @@ public class GameManager : MonoBehaviour
             { -1, -1,  5 },
             {  1,  4,  2 }
         };
-
-    [SerializeField] private int startRoom = 0;
 
     public struct Coords
     {
@@ -85,15 +82,13 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         current = this;
-        player = GameObject.FindGameObjectWithTag("Player");
         for (int i = 0; i < seed.GetLength(0); i++)
         {
             for (int j = 0; j < seed.GetLength(1); j++)
             {
-                if (seed[i, j] >= 0)
+                if (seed[i,j] >= 0)
                 {
-                    rooms[seed[i, j]].GetComponent<RoomManager>().setID(seed[i, j]);
-                    rooms[seed[i, j]].transform.position = new Vector3(i * roomLength, 0, j * roomWidth);
+                    rooms[seed[i, j]].transform.position = new Vector3(i * roomLength, 0, j * roomWidth - roomWidth);
                 }
             }
         }
@@ -101,8 +96,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Coords startLevelArrayCoords = findIndexOfRoom(startRoom);
-        player.transform.position = new Vector3(startLevelArrayCoords.X * roomLength + 1.5f, 3.5f, startLevelArrayCoords.Y * roomWidth - roomWidth / 2);
+        for (int i = 0; i < rooms.Length; i++)
+        {
+            rooms[i].GetComponent<RoomManager>().setID(i);
+        }
     }
 
     public void StartRoom(int id)
