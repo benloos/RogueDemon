@@ -9,6 +9,7 @@ public class RoomManager : MonoBehaviour
     public void setID(int id) { roomID = id; }
 
     public bool isCleared = false;
+    public bool isStarted = false;
 
     public GameObject DoorNegativeX;
     public GameObject DoorNegativeZ;
@@ -17,15 +18,18 @@ public class RoomManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isCleared)
+        if (roomID == 0)
+        {
+            GameManager.current.ClearedRoom(0);
+        }
+        else if (!isStarted && !isCleared)
         {
             if (other.CompareTag("Player"))
             {
                 GameManager.current.StartRoom(roomID);
+                StartCoroutine(delayedClear());
             }
         }
-
-        StartCoroutine(delayedClear());
     }
 
     private IEnumerator delayedClear()
