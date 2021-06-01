@@ -149,10 +149,10 @@ MonoBehaviour:
   controller: {fileID: 2369464075740059787}
   speed: 12
   groundCheck: {fileID: 1990690089578359507}
-  gravity: -9.81
+  gravity: -35
   groundDistance: 0.2
   velocity: {x: 0, y: 0, z: 0}
-  jumpforce: 10
+  jumpforce: 12
 --- !u!136 &1990690089578359507
 CapsuleCollider:
   m_ObjectHideFlags: 0
