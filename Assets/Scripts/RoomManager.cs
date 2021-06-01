@@ -31,6 +31,7 @@ public class RoomManager : MonoBehaviour
             }
         }
     }
+    
 
     private IEnumerator delayedClear()
     {
