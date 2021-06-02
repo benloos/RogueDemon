@@ -8,6 +8,7 @@ TagManager:
   - DoorPosZ
   - DoorNegX
   - DoorNegZ
+  - ZombieP
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - Level
   - Water
   - UI
-  - 
-  - 
+  - WhatIsGround
+  - WhatIsPlayer
   - 
   - 
   - PostProcessing
