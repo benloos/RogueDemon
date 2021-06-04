@@ -94,7 +94,6 @@ public class GameManager : MonoBehaviour
                 {
                     rooms[0].GetComponent<RoomManager>().setID(0);
                     rooms[0].transform.position = new Vector3(i * roomLength + 22.5f, 0, j * roomWidth - 15f);
-                    player.transform.position = new Vector3(rooms[0].transform.position.x + 7.5f, 3f, rooms[0].transform.position.z - 7.5f);
                 }
                 else if (seed[i, j] > 0)
                 {
@@ -107,7 +106,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
+        player.transform.position = new Vector3(rooms[0].transform.position.x + 7.5f, 3f, rooms[0].transform.position.z - 7.5f);
     }
 
     public void StartRoom(int id)
