@@ -65,6 +65,7 @@ public class EnemyAI : MonoBehaviour
     {
         agent.SetDestination(transform.position);
         transform.LookAt(player);
+        transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
         if(!hasAttacked)
         {
             //AttackCode
