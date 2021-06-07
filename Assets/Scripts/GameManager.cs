@@ -9,13 +9,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject[] rooms;
     private int roomLength = 60, roomWidth = 30; // Edges at 0,0 and 60,-30
-    private int[,] seed = new int[,] { // Start in Right Column, Boss in Left Column
-            { -1, -1, -1, -1, -1 },
-            { -1,  7,  1,  3, -1 },
-            { -1, -1,  6,  5,  0 },
-            { -1,  8,  4,  2, -1 },
-            { -1, -1, -1, -1, -1 }
-        };
+    private List<int[,]> seeds;
+    private int seed = 0;
 
     public struct Coords
     {
@@ -31,11 +26,11 @@ public class GameManager : MonoBehaviour
 
     private Coords findIndexOfRoom(int roomID)
     {
-        for (int i = 0; i < seed.GetLength(0); i++)
+        for (int i = 0; i < seeds[seed].GetLength(0); i++)
         {
-            for (int j = 0; j < seed.GetLength(1); j++)
+            for (int j = 0; j < seeds[seed].GetLength(1); j++)
             {
-                if (seed[i, j] == roomID)
+                if (seeds[seed][i, j] == roomID)
                 {
                     return new Coords(i, j);
                 }
@@ -48,57 +43,93 @@ public class GameManager : MonoBehaviour
     {
         Coords roomCoords = findIndexOfRoom(roomID);
 
-        if (roomCoords.X + 1 < seed.GetLength(0))
+        if (roomCoords.X + 1 < seeds[seed].GetLength(0))
         {
-            if (seed[roomCoords.X + 1, roomCoords.Y] > -1)
+            if (seeds[seed][roomCoords.X + 1, roomCoords.Y] > -1)
             {
                 rooms[roomID].GetComponent<RoomManager>().DoorPositiveX.GetComponent<DoorOpener>().Open();
-                rooms[seed[roomCoords.X + 1, roomCoords.Y]].GetComponent<RoomManager>().DoorNegativeX.GetComponent<DoorOpener>().Open();
+                rooms[seeds[seed][roomCoords.X + 1, roomCoords.Y]].GetComponent<RoomManager>().DoorNegativeX.GetComponent<DoorOpener>().Open();
             }
         }
         if (roomCoords.X - 1 > -1)
         {
-            if (seed[roomCoords.X - 1, roomCoords.Y] > -1)
+            if (seeds[seed][roomCoords.X - 1, roomCoords.Y] > -1)
             {
                 rooms[roomID].GetComponent<RoomManager>().DoorNegativeX.GetComponent<DoorOpener>().Open();
-                rooms[seed[roomCoords.X - 1, roomCoords.Y]].GetComponent<RoomManager>().DoorPositiveX.GetComponent<DoorOpener>().Open();
+                rooms[seeds[seed][roomCoords.X - 1, roomCoords.Y]].GetComponent<RoomManager>().DoorPositiveX.GetComponent<DoorOpener>().Open();
             }
         }
-        if (roomCoords.Y + 1 < seed.GetLength(1))
+        if (roomCoords.Y + 1 < seeds[seed].GetLength(1))
         {
-            if (seed[roomCoords.X, roomCoords.Y + 1] > -1)
+            if (seeds[seed][roomCoords.X, roomCoords.Y + 1] > -1)
             {
                 rooms[roomID].GetComponent<RoomManager>().DoorPositiveZ.GetComponent<DoorOpener>().Open();
-                rooms[seed[roomCoords.X, roomCoords.Y + 1]].GetComponent<RoomManager>().DoorNegativeZ.GetComponent<DoorOpener>().Open();
+                rooms[seeds[seed][roomCoords.X, roomCoords.Y + 1]].GetComponent<RoomManager>().DoorNegativeZ.GetComponent<DoorOpener>().Open();
             }
         }
         if (roomCoords.Y - 1 > -1)
         {
-            if (seed[roomCoords.X, roomCoords.Y - 1] > -1)
+            if (seeds[seed][roomCoords.X, roomCoords.Y - 1] > -1)
             {
                 rooms[roomID].GetComponent<RoomManager>().DoorNegativeZ.GetComponent<DoorOpener>().Open();
-                rooms[seed[roomCoords.X, roomCoords.Y - 1]].GetComponent<RoomManager>().DoorPositiveZ.GetComponent<DoorOpener>().Open();
+                rooms[seeds[seed][roomCoords.X, roomCoords.Y - 1]].GetComponent<RoomManager>().DoorPositiveZ.GetComponent<DoorOpener>().Open();
             }
         }
     }
 
     private void Awake()
     {
+        seeds = new List<int[,]>(); // Start Room on the right, Bossroom on the left
+        seeds.Add(new int[,] {
+            {             -1, -1, -1, -1, -1 },
+            {             -1,  7,  1,  3, -1 },
+            {             -1, -1,  6,  5,  0 },
+            { rooms.Length-1,  8,  4,  2, -1 },
+            {             -1, -1, -1, -1, -1 }
+        });
+        seeds.Add(new int[,] {
+            {             -1,  6, -1, -1, -1 },
+            { rooms.Length-1,  7,  1,  3, -1 },
+            {             -1, -1, -1,  5, -1 },
+            {             -1,  8,  4,  2,  0 },
+            {             -1, -1, -1, -1, -1 }
+        });
+        seeds.Add(new int[,] {
+            {             -1,  6, -1, -1, -1 },
+            {             -1,  7,  1,  3, -1 },
+            {             -1, -1, -1,  5, -1 },
+            { rooms.Length-1,  8,  4,  2,  0 },
+            {             -1, -1, -1, -1, -1 }
+        });
+        seeds.Add(new int[,] {
+            {             -1, -1, -1, -1, -1 },
+            {             -1,  7,  1,  3, -1 },
+            { rooms.Length-1,  6, -1,  5, -1 },
+            {             -1,  8,  4,  2,  0 },
+            {             -1, -1, -1, -1, -1 }
+        });
+        seed = Random.Range(0, seeds.Count);
+        Debug.Log("Current seed: " + seed);
         current = this;
         player = GameObject.FindGameObjectWithTag("Player");
-        for (int i = 0; i < seed.GetLength(0); i++)
+        for (int i = 0; i < seeds[seed].GetLength(0); i++)
         {
-            for (int j = 0; j < seed.GetLength(1); j++)
+            for (int j = 0; j < seeds[seed].GetLength(1); j++)
             {
-                if (seed[i, j] == 0)
+                if (seeds[seed][i, j] == 0)
                 {
                     rooms[0].GetComponent<RoomManager>().setID(0);
                     rooms[0].transform.position = new Vector3(i * roomLength + 22.5f, 0, j * roomWidth - 15f);
                 }
-                else if (seed[i, j] > 0)
+                else if (seeds[seed][i, j] == rooms.Length - 1)
                 {
-                    rooms[seed[i, j]].GetComponent<RoomManager>().setID(seed[i, j]);
-                    rooms[seed[i, j]].transform.position = new Vector3(i * roomLength, 0, j * roomWidth);
+                    rooms[rooms.Length-1].GetComponent<RoomManager>().setID(rooms.Length - 1);
+                    rooms[rooms.Length-1].transform.position = new Vector3(i * roomLength + 8f, 0, j * roomWidth);
+                }
+                else if (seeds[seed][i, j] > 0)
+                {
+                    rooms[seeds[seed][i, j]].GetComponent<RoomManager>().setID(seeds[seed][i, j]);
+                    rooms[seeds[seed][i, j]].transform.position = new Vector3(i * roomLength, 0, j * roomWidth);
                 }
             }
         }
