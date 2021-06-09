@@ -28,6 +28,7 @@ public class EnemyAI : MonoBehaviour
     //States
     [SerializeField] private float sightRange, attackRange;
     private bool playerInRange, playerInSight;
+    public bool isActive;
     
 
     // Start is called before the first frame update
@@ -40,19 +41,23 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        //checkRanges
-        playerInSight = Physics.CheckSphere(transform.position, sightRange, whatisPlayer);
-        playerInRange = Physics.CheckSphere(transform.position, attackRange, whatisPlayer);
-
-        if (!playerInRange) 
-        { 
-            ChasePlayer();
-            anim.SetBool("PlayerInRange", false);
-        }
-        if (playerInRange)
+        if (isActive == true)
         {
-            anim.SetBool("PlayerInRange", true);
-            AttackPlayer();
+            anim.SetBool("isActive", true);
+            //checkRanges
+            playerInSight = Physics.CheckSphere(transform.position, sightRange, whatisPlayer);
+            playerInRange = Physics.CheckSphere(transform.position, attackRange, whatisPlayer);
+
+            if (!playerInRange)
+            {
+                ChasePlayer();
+                anim.SetBool("PlayerInRange", false);
+            }
+            if (playerInRange)
+            {
+                anim.SetBool("PlayerInRange", true);
+                AttackPlayer();
+            }
         }
     }
 
