@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager current;
-    private GameObject player;
+
+    public GameObject player;
 
     [SerializeField] private GameObject[] rooms;
     private int roomLength = 60, roomWidth = 30; // Edges at 0,0 and 60,-30
