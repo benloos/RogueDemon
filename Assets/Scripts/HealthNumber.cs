@@ -7,13 +7,11 @@ using TMPro;
 public class HealthNumber : MonoBehaviour
 {
     public TMP_Text health;
-    public GameObject player;
-
     private PlayerController pc;
 
     private void Start()
     {
-        pc = player.GetComponent<PlayerController>();
+        pc = GameManager.current.player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
