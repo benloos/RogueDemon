@@ -93,7 +93,7 @@ public class EnemyAI : MonoBehaviour
         anim.SetBool("HasAttacked", false);
     }
 
-    void TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
         health = health - dmg;
         anim.SetFloat("HP", health);
