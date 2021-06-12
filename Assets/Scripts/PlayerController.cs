@@ -20,6 +20,11 @@ public class PlayerController : MonoBehaviour
     private float idleCounter;
     private Vector3 targetWeaponBobPosition;
 
+    [SerializeField] public int maxHP = 100;
+    public int HP = 100;
+    public int DMG = 10;
+    public int Firerate = 2;
+
     void Start(){
         orig_height = controller.height;
         crouch_height = controller.height/2;
@@ -121,5 +126,25 @@ public class PlayerController : MonoBehaviour
     private void HeadBob (float z, float x_intensity, float y_intensity){
         targetWeaponBobPosition = weaponOrigin + new Vector3(Mathf.Cos(z) * x_intensity, Mathf.Sin(z * 2) * y_intensity, 0);
     }
+
+    public void Damage(int dmg)
+    {
+        HP -= dmg;
+        if (HP < 1)
+        {
+            HP = 0;
+            // TODO: death
+        }
+    }
+
+    public void Heal(int hp)
+    {
+        HP += hp;
+        if (HP > maxHP)
+        {
+            HP = maxHP;
+        }
+    }
+
 }
 
