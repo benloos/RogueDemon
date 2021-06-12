@@ -12,13 +12,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject weapon;
     [SerializeField] private Vector3 velocity;
     [SerializeField] private float jumpforce = 10f;
+    [SerializeField] private ParticleSystem particle;
+    [SerializeField] private Camera camera;
     private float orig_height;
     private float crouch_height;
     private bool sprinting = false;
+    private bool aiming = false;
     private Vector3 weaponOrigin;
     private float movementCounter;
     private float idleCounter;
     private Vector3 targetWeaponBobPosition;
+    private Vector3 weaponAimPosition = new Vector3(0.005f,-0.165f,0.5f);
 
     [SerializeField] public int maxHP = 100;
     public int HP = 100;
@@ -92,23 +96,31 @@ public class PlayerController : MonoBehaviour
         
         //Debug.Log("Weapon Origin: (" + weaponOrigin.x + ", " + weaponOrigin.y + ", " + weaponOrigin.z + ")");
         //HeadBob
-        if(IsGrounded()){
-        if(x == 0 && z == 0){
-            HeadBob(idleCounter, 0.025f, 0.025f);
-            idleCounter += Time.deltaTime;
-            weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, targetWeaponBobPosition, Time.deltaTime * 2f);   
-        } else if(!sprinting){
-            HeadBob(movementCounter, 0.035f, 0.035f);
-            movementCounter += Time.deltaTime * 3.5f;
-            weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, targetWeaponBobPosition, Time.deltaTime * 6f);
-        } else {
-            HeadBob(movementCounter, 0.045f, 0.045f);
-            movementCounter += Time.deltaTime * 8f;
-            weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, targetWeaponBobPosition, Time.deltaTime * 10f);
-        }
+        if(IsGrounded() && !aiming){
+            if(x == 0 && z == 0){
+                HeadBob(idleCounter, 0.025f, 0.025f);
+                idleCounter += Time.deltaTime;
+                weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, targetWeaponBobPosition, Time.deltaTime * 2f);   
+            } else if(!sprinting){
+                HeadBob(movementCounter, 0.035f, 0.035f);
+                movementCounter += Time.deltaTime * 3.5f;
+                weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, targetWeaponBobPosition, Time.deltaTime * 6f);
+            } else {
+                HeadBob(movementCounter, 0.045f, 0.045f);
+                movementCounter += Time.deltaTime * 8f;
+                weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, targetWeaponBobPosition, Time.deltaTime * 10f);
+            }
         }
 
-        //Weapon moves with Camera
+        //aiming
+        if(Input.GetKey(KeyCode.Mouse1)){
+            weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, weaponAimPosition, Time.deltaTime * 20);
+            //weapon.transform.localPosition = weaponAimPosition;
+            aiming = true;
+        } else {
+            weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, weaponOrigin, Time.deltaTime * 20);
+            aiming = false;
+        }
         
     }
 
@@ -146,5 +158,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void aim(){
+    }
 }
 

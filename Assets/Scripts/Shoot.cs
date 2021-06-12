@@ -7,6 +7,7 @@ public class Shoot : MonoBehaviour
     [SerializeField] GameObject Projectile;
     [SerializeField] GameObject weapon;
     [SerializeField] Camera camera;
+    [SerializeField] int DMG;
     private ParticleSystem particle;
 
 
@@ -25,8 +26,7 @@ public class Shoot : MonoBehaviour
                 Debug.Log(hit.transform.name);
                 if(hit.transform.tag == "ZombieP"){
                     EnemyAI script = hit.transform.GetComponent<EnemyAI>();
-                    Debug.Log("hello is me");
-                    script.TakeDamage(2);
+                    script.TakeDamage(DMG);
                 }
             }
         }
@@ -34,10 +34,10 @@ public class Shoot : MonoBehaviour
 
     private void OnDrawGizmos(){
         RaycastHit hit;
-        Gizmos.color = Color.cyan;
+        Gizmos.color = Color.magenta;
         if(Physics.Raycast(camera.transform.position,transform.right, out hit)){
             //Debug.Log(hit.transform.name);
-            Debug.DrawRay(camera.transform.position, transform.right, Color.cyan);
+            Debug.DrawRay(camera.transform.position, transform.right, Color.magenta);
             Gizmos.DrawSphere(hit.point, 0.1f);
         }
     }
