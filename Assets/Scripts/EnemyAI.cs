@@ -98,6 +98,7 @@ public class EnemyAI : MonoBehaviour
         health = health - dmg;
         anim.SetFloat("HP", health);
         anim.SetBool("GotHit", true);
+        Debug.Log(health);
 
         if (health<=0)
         {
