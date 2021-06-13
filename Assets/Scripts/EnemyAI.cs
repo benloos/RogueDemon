@@ -34,7 +34,7 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameManager.current.player.transform;
         agent = GetComponent<NavMeshAgent>();
         anim.SetFloat("HP", health);
     }

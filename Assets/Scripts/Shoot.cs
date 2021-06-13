@@ -7,12 +7,13 @@ public class Shoot : MonoBehaviour
     [SerializeField] GameObject Projectile;
     [SerializeField] GameObject weapon;
     [SerializeField] Camera camera;
-    [SerializeField] int DMG;
+    PlayerController player;
     private ParticleSystem particle;
 
 
     void Start(){
         particle = GetComponentInChildren<ParticleSystem>();
+        player = GameManager.current.player.GetComponent<PlayerController>();
     }
     // Update is called once per frame
     void Update()
@@ -26,7 +27,7 @@ public class Shoot : MonoBehaviour
                 Debug.Log(hit.transform.name);
                 if(hit.transform.tag == "ZombieP"){
                     EnemyAI script = hit.transform.GetComponent<EnemyAI>();
-                    script.TakeDamage(DMG);
+                    script.TakeDamage(player.DMG);
                 }
             }
         }
