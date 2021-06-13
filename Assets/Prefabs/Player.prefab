@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1340407385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149364263225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef29aecfaece5a46ba6b8fe1d667405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Projectile: {fileID: 5841312566026452953, guid: d1723b6c88a43bc409d239d9b6e04f71, type: 3}
+  weapon: {fileID: 919132149364263225}
+  camera: {fileID: 2369464076153803876}
 --- !u!1 &2369464075740059785
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,6 +86,12 @@ MonoBehaviour:
   weapon: {fileID: 919132149364263225}
   velocity: {x: 0, y: 0, z: 0}
   jumpforce: 12
+  particle: {fileID: 0}
+  camera: {fileID: 0}
+  maxHP: 100
+  HP: 100
+  DMG: 10
+  Firerate: 2
 --- !u!136 &1990690089578359507
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -252,6 +273,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2369464076153803872}
     m_Modifications:
+    - target: {fileID: 2779066681061054113, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2779066681061054113, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 5886706038233355914, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
       propertyPath: m_Name
       value: Rogue_Demon_PlayerWeapon_V1
@@ -298,6 +327,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6555577906406067248, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078777071238608217, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
+      propertyPath: TrailModule.ratio
+      value: 0.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078777071238608217, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
+      propertyPath: TrailModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078777071238608217, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
+      propertyPath: TrailModule.lifetime.scalar
+      value: 0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078777071238608217, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
+      propertyPath: TrailModule.inheritParticleColor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078777071238608217, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
+      propertyPath: TrailModule.colorOverTrail.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078777071238608217, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
+      propertyPath: TrailModule.colorOverTrail.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078777071238608217, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078777071238608217, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxColor.g
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

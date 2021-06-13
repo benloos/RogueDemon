@@ -7,30 +7,37 @@ public class Shoot : MonoBehaviour
     [SerializeField] GameObject Projectile;
     [SerializeField] GameObject weapon;
     [SerializeField] Camera camera;
-    PlayerController player;
+    private PlayerController pc;
     private ParticleSystem particle;
-
+    float timer;
 
     void Start(){
+        pc = GameManager.current.player.GetComponent<PlayerController>();
+        timer = 1.0f / (float)pc.Firerate;
         particle = GetComponentInChildren<ParticleSystem>();
-        player = GameManager.current.player.GetComponent<PlayerController>();
     }
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0)){
+        if (Input.GetKey(KeyCode.Mouse0) && timer >= (1.0f / (float)pc.Firerate))
+        {
+            timer = 0;
             //spawn Raycast
             //illuminate Raycast
             particle.Play();
             RaycastHit hit;
-            if(Physics.Raycast(camera.transform.position,transform.right, out hit)){
+            if (Physics.Raycast(camera.transform.position, transform.right, out hit))
+            {
                 Debug.Log(hit.transform.name);
-                if(hit.transform.tag == "ZombieP"){
+                if (hit.transform.tag == "ZombieP")
+                {
                     EnemyAI script = hit.transform.GetComponent<EnemyAI>();
-                    script.TakeDamage(player.DMG);
+                    script.TakeDamage(pc.DMG);
                 }
+
             }
         }
+        timer += Time.deltaTime;
     }
 
     private void OnDrawGizmos(){
@@ -42,4 +49,5 @@ public class Shoot : MonoBehaviour
             Gizmos.DrawSphere(hit.point, 0.1f);
         }
     }
+
 }

@@ -32,7 +32,7 @@ public class EnemyAI : MonoBehaviour
     
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         player = GameManager.current.player.transform;
         agent = GetComponent<NavMeshAgent>();

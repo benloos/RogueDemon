@@ -16,7 +16,21 @@ public class RoomManager : MonoBehaviour
     public GameObject DoorPositiveX;
     public GameObject DoorPositiveZ;
 
-  
+    private void OnTriggerEnter(Collider other)
+    {
+        if (roomID == 0)
+        {
+            GameManager.current.ClearedRoom(0);
+        }
+        else if (!isStarted && !isCleared)
+        {
+            if (other.CompareTag("Player"))
+            {
+                GameManager.current.StartRoom(roomID);
+                StartCoroutine(delayedClear());
+            }
+        }
+    }
 
     private IEnumerator delayedClear()
     {

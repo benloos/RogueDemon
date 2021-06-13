@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 targetWeaponBobPosition;
     private Vector3 weaponAimPosition = new Vector3(0.005f,-0.165f,0.5f);
 
-    [SerializeField] public int maxHP = 100;
+    // Player Stats
+    public int maxHP = 100;
     public int HP = 100;
     public int DMG = 10;
     public int Firerate = 2;
