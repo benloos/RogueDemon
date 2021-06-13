@@ -27,6 +27,7 @@ public class PowerUpObject : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Destroy(gameObject);
             if (type == PowerUpType.HpUp)
             {
                 pc.maxHP += amount;
