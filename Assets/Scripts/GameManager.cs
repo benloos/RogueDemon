@@ -104,9 +104,9 @@ public class GameManager : MonoBehaviour
         });
         seeds.Add(new int[,] {
             {             -1, -1, -1, -1, -1 },
-            {             -1,  7,  1,  3, -1 },
+            {             -1,  7,  1,  3,  0 },
             { rooms.Length-1,  6, -1,  5, -1 },
-            {             -1,  8,  4,  2,  0 },
+            {             -1,  8,  4,  2, -1 },
             {             -1, -1, -1, -1, -1 }
         });
         seed = Random.Range(0, seeds.Count);
@@ -138,15 +138,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Teleport Player to StartRoom");
         PlayerController pc = player.GetComponent<PlayerController>();
         pc.enabled = false;
-        Vector3 startPos = rooms[0].transform.position;
-        startPos += new Vector3(7.5f, 2f, -7.5f);
-        Quaternion startRot = Quaternion.Euler(Vector3.zero);
-        player.transform.SetPositionAndRotation(startPos, startRot);
+        resetPlayerPos();
         pc.enabled = true;
-
     }
 
     public void StartRoom(int id)
@@ -162,5 +157,10 @@ public class GameManager : MonoBehaviour
     {
         openAdjacentDoors(id);
         rooms[id].GetComponent<RoomManager>().isCleared = true;
+    }
+
+    public void resetPlayerPos()
+    {
+        player.transform.position = new Vector3(rooms[0].transform.position.x + 7.5f, 2f, rooms[0].transform.position.z - 7.5f);
     }
 }
