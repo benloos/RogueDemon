@@ -86,8 +86,8 @@ MonoBehaviour:
   weapon: {fileID: 919132149364263225}
   velocity: {x: 0, y: 0, z: 0}
   jumpforce: 12
-  particle: {fileID: 0}
-  camera: {fileID: 0}
+  particle: {fileID: 4561143804642405098}
+  camera: {fileID: 2369464076153803876}
   maxHP: 100
   HP: 100
   DMG: 10
@@ -371,5 +371,10 @@ GameObject:
 --- !u!4 &543450653365621635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6555577906406067248, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
+  m_PrefabInstance: {fileID: 6733072904280629171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4561143804642405098 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7078777071238608217, guid: 3a62455493f9a354297daeb64e0fc16c, type: 3}
   m_PrefabInstance: {fileID: 6733072904280629171}
   m_PrefabAsset: {fileID: 0}
