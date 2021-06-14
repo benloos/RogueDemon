@@ -5,6 +5,7 @@ using UnityEngine;
 public class PowerUpObject : MonoBehaviour
 {
     PlayerController pc;
+    ParticleSystem ps;
 
     public enum PowerUpType{ 
         HpUp,
@@ -21,10 +22,13 @@ public class PowerUpObject : MonoBehaviour
     private void Start()
     {
         pc = GameManager.current.player.GetComponent<PlayerController>();
+        ps = GetComponentInChildren<ParticleSystem>();
+        ps.transform.parent = null;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        ps.Play();
         if (other.CompareTag("Player"))
         {
             if (type == PowerUpType.HpUp)
@@ -51,5 +55,12 @@ public class PowerUpObject : MonoBehaviour
                 pc.Firerate *= amount;
             }
         }
+        StartCoroutine(destroyParticleAfter(1));
+    }
+    
+    IEnumerator destroyParticleAfter(float s)
+    {
+        yield return new WaitForSeconds(s);
+        Destroy(ps);
     }
 }

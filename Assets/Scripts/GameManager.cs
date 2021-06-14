@@ -161,6 +161,6 @@ public class GameManager : MonoBehaviour
 
     public void resetPlayerPos()
     {
-        player.transform.position = new Vector3(rooms[0].transform.position.x + 7.5f, 2f, rooms[0].transform.position.z - 7.5f);
+        player.transform.position = new Vector3(rooms[0].transform.position.x + 7.5f, 3f, rooms[0].transform.position.z - 7.5f);
     }
 }
