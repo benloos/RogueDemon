@@ -27,21 +27,27 @@ public class PowerUpObject : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Destroy(gameObject);
             if (type == PowerUpType.HpUp)
             {
+                Destroy(gameObject);
                 pc.maxHP += amount;
             } 
             else if (type == PowerUpType.Heal)
             {
-                pc.Heal(amount);
+                if (pc.HP < pc.maxHP)
+                {
+                    Destroy(gameObject);
+                    pc.Heal(amount);
+                }
             }
             else if (type == PowerUpType.DamageUp)
             {
+                Destroy(gameObject);
                 pc.DMG += amount;
             }
             else if (type == PowerUpType.FirerateUp)
             {
+                Destroy(gameObject);
                 pc.Firerate *= amount;
             }
         }

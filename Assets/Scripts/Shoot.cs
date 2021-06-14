@@ -28,7 +28,7 @@ public class Shoot : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(camera.transform.position, transform.right, out hit))
             {
-                Debug.Log(hit.transform.name);
+                //Debug.Log(hit.transform.name);
                 if (hit.transform.tag == "ZombieP")
                 {
                     EnemyAI script = hit.transform.GetComponent<EnemyAI>();

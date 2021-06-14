@@ -138,7 +138,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        player.transform.position = new Vector3(rooms[0].transform.position.x + 7.5f, 3f, rooms[0].transform.position.z - 7.5f);
+        Debug.Log("Teleport Player to StartRoom");
+        PlayerController pc = player.GetComponent<PlayerController>();
+        pc.enabled = false;
+        Vector3 startPos = rooms[0].transform.position;
+        startPos += new Vector3(7.5f, 2f, -7.5f);
+        Quaternion startRot = Quaternion.Euler(Vector3.zero);
+        player.transform.SetPositionAndRotation(startPos, startRot);
+        pc.enabled = true;
+
     }
 
     public void StartRoom(int id)
