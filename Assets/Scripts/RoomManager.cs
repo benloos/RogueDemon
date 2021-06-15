@@ -47,12 +47,16 @@ public class RoomManager : MonoBehaviour
     {
         if (isStarted && !isCleared)
         {
+            bool allZombiesDead = true;
             // Check if Zombies are dead
-            /*for (var child : Transform in Zombies.transform)
+            foreach (Transform child in Zombies.transform)
             {
-                // Potentiell methode ob die tot sind
-            }*/
-            if (Zombies.transform.childCount == 0)
+                if (child.GetComponent<EnemyAI>().isActive)
+                {
+                    allZombiesDead = false;
+                }
+            }
+            if (allZombiesDead)
             {
                 ClearedRoom();
             }
