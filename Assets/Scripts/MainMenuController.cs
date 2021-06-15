@@ -25,7 +25,6 @@ public class MainMenuController : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        GameManager.current.resetPlayerPos();
     }
 
     public void PlayGame()

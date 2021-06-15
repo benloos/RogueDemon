@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager current;
+    public static GameManager current { get; private set; }
 
     public GameObject player;
 
@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private int roomLength = 60, roomWidth = 30; // Edges at 0,0 and 60,-30
     private List<int[,]> seeds;
     private int seed = 0;
+
+    private Vector3 spawnPoint;
 
     public struct Coords
     {
@@ -80,6 +82,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        current = this;
+
         seeds = new List<int[,]>(); // Start Room on the right, Bossroom on the left
         seeds.Add(new int[,] {
             {             -1, -1, -1, -1, -1 },
@@ -111,8 +115,6 @@ public class GameManager : MonoBehaviour
         });
         seed = Random.Range(0, seeds.Count);
         Debug.Log("Current seed: " + seed);
-        current = this;
-        player = GameObject.FindGameObjectWithTag("Player");
         for (int i = 0; i < seeds[seed].GetLength(0); i++)
         {
             for (int j = 0; j < seeds[seed].GetLength(1); j++)
@@ -121,6 +123,7 @@ public class GameManager : MonoBehaviour
                 {
                     rooms[0].GetComponent<RoomManager>().setID(0);
                     rooms[0].transform.position = new Vector3(i * roomLength + 22.5f, 0, j * roomWidth - 15f);
+                    spawnPoint = new Vector3(i * roomLength + 22.5f, 0, j * roomWidth - 15f);
                 }
                 else if (seeds[seed][i, j] == rooms.Length - 1)
                 {
@@ -138,14 +141,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerController pc = player.GetComponent<PlayerController>();
-        pc.enabled = false;
         resetPlayerPos();
-        pc.enabled = true;
     }
 
     public void resetPlayerPos()
     {
-        player.transform.position = new Vector3(rooms[0].transform.position.x + 7.5f, 3f, rooms[0].transform.position.z - 7.5f);
+        CharacterController cc = player.GetComponent<CharacterController>();
+        cc.enabled = false;
+        player.transform.position = spawnPoint + new Vector3(7.5f, 3f, -7.5f);
+        cc.enabled = true;
     }
 }
