@@ -16,7 +16,7 @@ public class PowerUpObject : MonoBehaviour
 
     [Header("Typ des Powerups.")]
     public PowerUpType type;
-    [Header("Stärke wird drauf addiert, Firerate wird damit multipliziert.")]
+    [Header("Current Value += Amount.")]
     public int amount = 10;
 
     private void Start()
@@ -28,31 +28,31 @@ public class PowerUpObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        ps.Play();
         if (other.CompareTag("Player"))
         {
             if (type == PowerUpType.HpUp)
             {
+                ps.Play();
                 Destroy(gameObject);
                 pc.maxHP += amount;
             } 
-            else if (type == PowerUpType.Heal)
+            else if (type == PowerUpType.Heal && pc.HP < pc.maxHP)
             {
-                if (pc.HP < pc.maxHP)
-                {
-                    Destroy(gameObject);
-                    pc.Heal(amount);
-                }
+                ps.Play();
+                Destroy(gameObject);
+                pc.Heal(amount);
             }
             else if (type == PowerUpType.DamageUp)
             {
+                ps.Play();
                 Destroy(gameObject);
                 pc.DMG += amount;
             }
             else if (type == PowerUpType.FirerateUp)
             {
+                ps.Play();
                 Destroy(gameObject);
-                pc.Firerate *= amount;
+                pc.Firerate += amount;
             }
         }
         StartCoroutine(destroyParticleAfter(1));

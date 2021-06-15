@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     public NavMeshAgent agent;
 
     public Transform player;
+    private PlayerController pc;
 
     public LayerMask whatisGround, whatisPlayer;
 
@@ -16,6 +17,7 @@ public class EnemyAI : MonoBehaviour
 
 
     //Attack
+    [SerializeField] private int attackDamage = 20;
     [SerializeField] private float timeBetweenAttacks;
     private bool hasAttacked;
     [SerializeField] public Transform attackPoint;
@@ -35,6 +37,7 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         player = GameManager.current.player.transform;
+        pc = GameManager.current.player.GetComponent<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
         anim.SetFloat("HP", health);
     }
@@ -78,7 +81,7 @@ public class EnemyAI : MonoBehaviour
             //DmgPlayer
             foreach(Collider hieEnemy in hitEnemies)
             {
-                Debug.Log("Zombie hit Player");
+                pc.Damage(attackDamage);
             }
 
             hasAttacked = true;
@@ -106,7 +109,7 @@ public class EnemyAI : MonoBehaviour
 
             Invoke(nameof(destroyEnemy), deathTime);
         }
-        Invoke(nameof(WaitForSeconds), staggerTime);
+        //Invoke(nameof(WaitForSeconds), staggerTime);
     }
 
     void destroyEnemy()

@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
+
         // Input for W A S D
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -142,10 +143,12 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(int dmg)
     {
+
         HP -= dmg;
         if (HP < 1)
         {
             HP = 0;
+            Time.timeScale = 0.3f;
             // TODO: death
         }
     }
@@ -159,7 +162,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void aim(){
-    }
 }
 

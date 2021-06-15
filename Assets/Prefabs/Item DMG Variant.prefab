@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 423291728882699164, guid: e6c7d139193421440a8fdb9dad5ea14e, type: 3}
+      propertyPath: amount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 423291728882699166, guid: e6c7d139193421440a8fdb9dad5ea14e, type: 3}
       propertyPath: m_Name
       value: Item DMG Variant

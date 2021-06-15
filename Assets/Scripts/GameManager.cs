@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         return new Coords(-1, -1);
     }
 
-    void openAdjacentDoors(int roomID)
+    public void openAdjacentDoors(int roomID)
     {
         Coords roomCoords = findIndexOfRoom(roomID);
 
@@ -83,8 +83,8 @@ public class GameManager : MonoBehaviour
         seeds = new List<int[,]>(); // Start Room on the right, Bossroom on the left
         seeds.Add(new int[,] {
             {             -1, -1, -1, -1, -1 },
-            {             -1,  7,  1,  3, -1 },
-            {             -1, -1,  6,  5,  0 },
+            {             -1,  7,  5,  3, -1 },
+            {             -1, -1,  6,  1,  0 },
             { rooms.Length-1,  8,  4,  2, -1 },
             {             -1, -1, -1, -1, -1 }
         });
@@ -142,21 +142,6 @@ public class GameManager : MonoBehaviour
         pc.enabled = false;
         resetPlayerPos();
         pc.enabled = true;
-    }
-
-    public void StartRoom(int id)
-    {
-        rooms[id].GetComponent<RoomManager>().isStarted = true;
-        rooms[id].GetComponent<RoomManager>().DoorNegativeX.GetComponent<DoorOpener>().Close();
-        rooms[id].GetComponent<RoomManager>().DoorNegativeZ.GetComponent<DoorOpener>().Close();
-        rooms[id].GetComponent<RoomManager>().DoorPositiveX.GetComponent<DoorOpener>().Close();
-        rooms[id].GetComponent<RoomManager>().DoorPositiveZ.GetComponent<DoorOpener>().Close();
-    }
-
-    public void ClearedRoom(int id)
-    {
-        openAdjacentDoors(id);
-        rooms[id].GetComponent<RoomManager>().isCleared = true;
     }
 
     public void resetPlayerPos()

@@ -16,6 +16,16 @@ public class HealthBarSlider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthBar.fillAmount = (float)pc.HP / (float)pc.maxHP;
+        float ratio = Mathf.Round(((float)pc.HP / (float)pc.maxHP) *100f) / 100f;
+        if (healthBar.fillAmount < ratio + 0.1f && healthBar.fillAmount > ratio - 0.1f)
+        {
+            healthBar.fillAmount = ratio;
+        } else if (healthBar.fillAmount < ratio)
+        {
+            healthBar.fillAmount += Time.deltaTime * 2f;
+        } else if (healthBar.fillAmount > ratio)
+        {
+            healthBar.fillAmount -= Time.deltaTime * 2f;
+        }
     }
 }

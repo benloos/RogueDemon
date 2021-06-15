@@ -16,25 +16,53 @@ public class RoomManager : MonoBehaviour
     public GameObject DoorPositiveX;
     public GameObject DoorPositiveZ;
 
+    public GameObject Zombies;
+
+    private void Start()
+    {
+        Zombies.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (roomID == 0)
         {
-            GameManager.current.ClearedRoom(0);
+            ClearedRoom();
         }
         else if (!isStarted && !isCleared)
         {
             if (other.CompareTag("Player"))
             {
-                GameManager.current.StartRoom(roomID);
-                StartCoroutine(delayedClear());
+                isStarted = true;
+                DoorNegativeX.GetComponent<DoorOpener>().Close();
+                DoorNegativeZ.GetComponent<DoorOpener>().Close();
+                DoorPositiveX.GetComponent<DoorOpener>().Close();
+                DoorPositiveZ.GetComponent<DoorOpener>().Close();
+                Zombies.SetActive(true);
             }
         }
     }
 
-    private IEnumerator delayedClear()
+    private void Update()
     {
-        yield return new WaitForSeconds(5);
-        GameManager.current.ClearedRoom(roomID);
+        if (isStarted && !isCleared)
+        {
+            // Check if Zombies are dead
+            /*for (var child : Transform in Zombies.transform)
+            {
+                // Potentiell methode ob die tot sind
+            }*/
+            if (Zombies.transform.childCount == 0)
+            {
+                ClearedRoom();
+            }
+        }
     }
+
+    public void ClearedRoom()
+    {
+        GameManager.current.openAdjacentDoors(roomID);
+        isCleared = true;
+    }
+
 }
