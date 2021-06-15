@@ -15,6 +15,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] Animator anim;
 
 
+    private Vector3 oldPos;
+
+
     //Attack
     [SerializeField] private int attackDamage = 20;
     [SerializeField] private float timeBetweenAttacks;
@@ -68,7 +71,14 @@ public class EnemyAI : MonoBehaviour
 
     void ChasePlayer()
     {
-        agent.SetDestination(player.position);
+        if(agent.SetDestination(player.position))
+        {
+            oldPos = player.position;
+        }
+        else
+        {
+            agent.SetDestination(oldPos);
+        }
     }
 
     void AttackPlayer()
@@ -107,7 +117,7 @@ public class EnemyAI : MonoBehaviour
         Debug.Log(health);
         agent.SetDestination(transform.position);
 
-        if (health<=0)
+        if (health <= 0)
         {
             //DeathCode
             isActive = false;
@@ -115,9 +125,12 @@ public class EnemyAI : MonoBehaviour
             deathSound.Play();
             Invoke(nameof(destroyEnemy), deathTime);
         }
-        anim.SetBool("GotHit", true);
-        isActive = false;
-        Invoke(nameof(stagger), staggerTime);
+        else
+        {
+            anim.SetBool("GotHit", true);
+            isActive = false;
+            Invoke(nameof(stagger), staggerTime);
+        }
     }
 
     void destroyEnemy()
