@@ -65,13 +65,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   anim: {fileID: 5537617672297259521}
+  attackDamage: 5
   timeBetweenAttacks: 1.39
   attackPoint: {fileID: 1966005497}
-  health: 100
-  deathTime: 0
-  staggerTime: 0
+  health: 50
+  deathTime: 1.5
+  staggerTime: 0.1
   sightRange: 0.2
-  attackRange: 2.03
+  attackRange: 2
   isActive: 1
 --- !u!195 &1635579247
 NavMeshAgent:
@@ -104,7 +105,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4803014352389650695, guid: 06cb2b131fe009c47a523671a8fa9ed8, type: 3}
       propertyPath: m_Name
-      value: Zombie3 Variant (2)
+      value: Zombie3 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4803014352389650695, guid: 06cb2b131fe009c47a523671a8fa9ed8, type: 3}
       propertyPath: m_TagString

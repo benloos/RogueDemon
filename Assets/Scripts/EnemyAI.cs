@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     public NavMeshAgent agent;
-
     public Transform player;
     private PlayerController pc;
 
@@ -79,7 +78,7 @@ public class EnemyAI : MonoBehaviour
             //AttackCode
             Collider[] hitEnemies=Physics.OverlapSphere(attackPoint.position, attackRange, whatisPlayer);
             //DmgPlayer
-            foreach(Collider hieEnemy in hitEnemies)
+            if(hitEnemies.Length>0)
             {
                 pc.Damage(attackDamage);
             }
@@ -100,20 +99,29 @@ public class EnemyAI : MonoBehaviour
     {
         health = health - dmg;
         anim.SetFloat("HP", health);
-        anim.SetBool("GotHit", true);
         Debug.Log(health);
+        agent.SetDestination(transform.position);
 
         if (health<=0)
         {
             //DeathCode
-
+            isActive = false;
+            anim.SetBool("isActive", false);
             Invoke(nameof(destroyEnemy), deathTime);
         }
-        //Invoke(nameof(WaitForSeconds), staggerTime);
+        anim.SetBool("GotHit", true);
+        isActive = false;
+        Invoke(nameof(stagger), staggerTime);
     }
 
     void destroyEnemy()
     {
         Destroy(gameObject);
+    }
+
+    void stagger()
+    {
+        anim.SetBool("GotHit", false);
+        isActive = true;
     }
 }
