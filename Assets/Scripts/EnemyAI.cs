@@ -20,11 +20,14 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float timeBetweenAttacks;
     private bool hasAttacked;
     [SerializeField] public Transform attackPoint;
+    [SerializeField] private AudioSource attScream;
+    [SerializeField] private AudioSource attSound;
 
     //HP
     [SerializeField] private int health=100;
     [SerializeField] private float deathTime;
     [SerializeField] private float staggerTime;
+    [SerializeField] private AudioSource deathSound;
 
     //States
     [SerializeField] private float sightRange, attackRange;
@@ -70,6 +73,7 @@ public class EnemyAI : MonoBehaviour
 
     void AttackPlayer()
     {
+        attScream.Play();
         agent.SetDestination(transform.position);
         transform.LookAt(player);
         transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
@@ -80,6 +84,7 @@ public class EnemyAI : MonoBehaviour
             //DmgPlayer
             if(hitEnemies.Length>0)
             {
+                attSound.Play();
                 pc.Damage(attackDamage);
             }
 
@@ -107,6 +112,7 @@ public class EnemyAI : MonoBehaviour
             //DeathCode
             isActive = false;
             anim.SetBool("isActive", false);
+            deathSound.Play();
             Invoke(nameof(destroyEnemy), deathTime);
         }
         anim.SetBool("GotHit", true);
