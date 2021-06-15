@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         wird LeftControl wieder losgelassen wird die spielfigur auf die ursprüngliche höhe des charakters + 0.1
         !!! damit der bums hier richtig funktioniert muss man sich beim crouchen bewegen sonst bleibt der im boden stecken... !!!
         */
-        if(Input.GetKeyDown(KeyCode.LeftControl)){
+        /*if(Input.GetKeyDown(KeyCode.LeftControl)){
             controller.height = crouch_height;
             groundCheck.height = crouch_height;
         }else if(Input.GetKeyUp(KeyCode.LeftControl)){
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
             transform.position = temp;
             groundCheck.height = orig_height;
             controller.height = orig_height;
-        }
+        }*/
 
         /**
         Sprinten LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOL

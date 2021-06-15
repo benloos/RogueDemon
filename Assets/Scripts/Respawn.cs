@@ -6,6 +6,9 @@ public class Respawn : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        GameManager.current.resetPlayerPos();
+        if (other.CompareTag("Player"))
+        {
+            GameManager.current.resetPlayerPos();
+        }
     }
 }
