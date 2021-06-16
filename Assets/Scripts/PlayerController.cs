@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void HandleDash(){
-        bool isTryingToDash = Input.GetKeyDown(KeyCode.Q);
+        bool isTryingToDash = Input.GetKeyDown(KeyCode.F);
 
         if (isTryingToDash && !isDashing){
             onStartDash();
