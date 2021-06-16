@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   amount: 10
+  pickupSound: {fileID: 8300000, guid: 3fc3258a77fc215418a41fb52e1fd194, type: 3}
 --- !u!135 &3764471778376220372
 SphereCollider:
   m_ObjectHideFlags: 0

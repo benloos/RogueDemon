@@ -7,7 +7,8 @@ public class PowerUpObject : MonoBehaviour
     PlayerController pc;
     ParticleSystem ps;
 
-    public enum PowerUpType{ 
+    public enum PowerUpType
+    {
         HpUp,
         Heal,
         DamageUp,
@@ -18,6 +19,8 @@ public class PowerUpObject : MonoBehaviour
     public PowerUpType type;
     [Header("Current Value += Amount.")]
     public int amount = 10;
+
+    [SerializeField] private AudioClip pickupSound;
 
     private void Start()
     {
@@ -30,26 +33,30 @@ public class PowerUpObject : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (type == PowerUpType.HpUp)
+            if (type == PowerUpType.Heal && pc.HP < pc.maxHP)
             {
+                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
                 ps.Play();
                 Destroy(gameObject);
                 pc.maxHP += amount;
-            } 
-            else if (type == PowerUpType.Heal && pc.HP < pc.maxHP)
+            }
+            else if (type == PowerUpType.HpUp)
             {
+                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
                 ps.Play();
                 Destroy(gameObject);
                 pc.Heal(amount);
             }
             else if (type == PowerUpType.DamageUp)
             {
+                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
                 ps.Play();
                 Destroy(gameObject);
                 pc.DMG += amount;
             }
             else if (type == PowerUpType.FirerateUp)
             {
+                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
                 ps.Play();
                 Destroy(gameObject);
                 pc.Firerate += amount;
@@ -57,7 +64,7 @@ public class PowerUpObject : MonoBehaviour
         }
         StartCoroutine(destroyParticleAfter(1));
     }
-    
+
     IEnumerator destroyParticleAfter(float s)
     {
         yield return new WaitForSeconds(s);
