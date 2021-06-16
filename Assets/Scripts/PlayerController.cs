@@ -17,15 +17,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera camera;
     [SerializeField] private Image DeathImage;
     [SerializeField] private Image DeathText; 
+    private Vector3 move;
     private float orig_height;
     private float crouch_height;
     private bool sprinting = false;
-    private bool aiming = false;
     private Vector3 weaponOrigin;
     private float movementCounter;
     private float idleCounter;
     private Vector3 targetWeaponBobPosition;
-    private Vector3 weaponAimPosition = new Vector3(0.005f,-0.165f,0.5f);
+    private float DashStartTime;
+    private bool isDashing;
+    
 
     // Player Stats
     public int maxHP = 100;
@@ -47,7 +49,9 @@ public class PlayerController : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         //movement direction Vektor
-        Vector3 move = transform.right * x + transform.forward * z;
+        move = transform.right * x + transform.forward * z;
+
+        HandleDash();
 
         // move player in direction of Vector
         controller.Move(move * speed * Time.deltaTime);
@@ -72,21 +76,6 @@ public class PlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
         
 
-        /**
-        wenn LeftControl gehalten wird wird die hitbox des Spielers kleiner um crouchen zu erzeugen
-        wird LeftControl wieder losgelassen wird die spielfigur auf die ursprüngliche höhe des charakters + 0.1
-        !!! damit der bums hier richtig funktioniert muss man sich beim crouchen bewegen sonst bleibt der im boden stecken... !!!
-        */
-        /*if(Input.GetKeyDown(KeyCode.LeftControl)){
-            controller.height = crouch_height;
-            groundCheck.height = crouch_height;
-        }else if(Input.GetKeyUp(KeyCode.LeftControl)){
-            Vector3 temp = transform.position;
-            temp.y = 0.1f; 
-            transform.position = temp;
-            groundCheck.height = orig_height;
-            controller.height = orig_height;
-        }*/
 
         /**
         Sprinten LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOL
@@ -101,7 +90,7 @@ public class PlayerController : MonoBehaviour
         
         //Debug.Log("Weapon Origin: (" + weaponOrigin.x + ", " + weaponOrigin.y + ", " + weaponOrigin.z + ")");
         //HeadBob
-        if(IsGrounded() && !aiming){
+        if(IsGrounded()){
             if(x == 0 && z == 0){
                 HeadBob(idleCounter, 0.025f, 0.025f);
                 idleCounter += Time.deltaTime;
@@ -115,17 +104,8 @@ public class PlayerController : MonoBehaviour
                 movementCounter += Time.deltaTime * 8f;
                 weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, targetWeaponBobPosition, Time.deltaTime * 10f);
             }
-        }
+        }      
 
-        //aiming
-        if(Input.GetKey(KeyCode.Mouse1)){
-            weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, weaponAimPosition, Time.deltaTime * 20);
-            //weapon.transform.localPosition = weaponAimPosition;
-            aiming = true;
-        } else {
-            weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, weaponOrigin, Time.deltaTime * 20);
-            aiming = false;
-        }
         
     }
 
@@ -173,5 +153,33 @@ public class PlayerController : MonoBehaviour
         GameManager.current.LoadMenuScene();
     }
 
+    void HandleDash(){
+        bool isTryingToDash = Input.GetKeyDown(KeyCode.Q);
+
+        if (isTryingToDash && !isDashing){
+            onStartDash();
+        }
+
+        if(isDashing){
+            if(Time.time - DashStartTime <= 0.4f){
+                if(move.Equals(Vector3.zero)){
+                    controller.Move(transform.forward * 30f * Time.deltaTime);
+                } else {
+                    controller.Move(move.normalized * 30f * Time.deltaTime);
+                }
+            } else {
+                onEndDash();
+            }
+        }
+    }
+    void onStartDash(){
+        isDashing = true;
+        DashStartTime = Time.time;
+    }
+
+    void onEndDash(){
+        isDashing = false;
+        DashStartTime= 0;
+    }
 }
 
