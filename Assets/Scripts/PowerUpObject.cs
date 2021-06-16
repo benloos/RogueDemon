@@ -38,14 +38,14 @@ public class PowerUpObject : MonoBehaviour
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
                 ps.Play();
                 Destroy(gameObject);
-                pc.maxHP += amount;
+                pc.Heal(amount);
             }
             else if (type == PowerUpType.HpUp)
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
                 ps.Play();
                 Destroy(gameObject);
-                pc.Heal(amount);
+                pc.maxHP += amount;
             }
             else if (type == PowerUpType.DamageUp)
             {
