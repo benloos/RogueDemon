@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
         /**
         Sprinten LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOL
         */
+        /*
         if(Input.GetKeyDown(KeyCode.LeftShift)){
             speed = 18f;
             sprinting = true;
@@ -87,6 +88,7 @@ public class PlayerController : MonoBehaviour
             speed = 12f;
             sprinting = false;
         }
+        */
         
         //Debug.Log("Weapon Origin: (" + weaponOrigin.x + ", " + weaponOrigin.y + ", " + weaponOrigin.z + ")");
         //HeadBob
@@ -154,14 +156,14 @@ public class PlayerController : MonoBehaviour
     }
 
     void HandleDash(){
-        bool isTryingToDash = Input.GetKeyDown(KeyCode.F);
+        bool isTryingToDash = Input.GetKeyDown(KeyCode.LeftShift);
 
         if (isTryingToDash && !isDashing){
             onStartDash();
         }
 
         if(isDashing){
-            if(Time.time - DashStartTime <= 0.4f){
+            if(Time.time - DashStartTime <= 0.2f){
                 if(move.Equals(Vector3.zero)){
                     controller.Move(transform.forward * 30f * Time.deltaTime);
                 } else {
