@@ -10,6 +10,7 @@ public class Shoot : MonoBehaviour
     private PlayerController pc;
     private ParticleSystem particle;
     private Light pointlight;
+    private AudioSource schuss_sound;
     float timer;
 
     void Start(){
@@ -17,6 +18,7 @@ public class Shoot : MonoBehaviour
         timer = 1.0f / (float)pc.Firerate;
         particle = GetComponentInChildren<ParticleSystem>();
         pointlight = particle.GetComponentInChildren<Light>();
+        schuss_sound = GetComponent<AudioSource>();
         //pointlight.enabled = false;
     }
     // Update is called once per frame
@@ -28,6 +30,7 @@ public class Shoot : MonoBehaviour
             //spawn Raycast
             //illuminate Raycast
             particle.Play();
+            schuss_sound.Play();
             //pointlight.enabled = true;
             RaycastHit hit;
             if (Physics.Raycast(camera.transform.position, transform.right, out hit))
