@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -150,5 +151,15 @@ public class GameManager : MonoBehaviour
         cc.enabled = false;
         player.transform.position = spawnPoint + new Vector3(7.5f, 3f, -7.5f);
         cc.enabled = true;
+    }
+
+    public void LoadMenuScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void LoadNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

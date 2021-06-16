@@ -9,6 +9,8 @@ public class PauseMenuController : MonoBehaviour
 
     public GameObject PauseMenuUI;
     public GameObject PlayerUI;
+    public GameObject DeathScreen;
+
 
     private void Update()
     {
@@ -31,6 +33,7 @@ public class PauseMenuController : MonoBehaviour
         Cursor.visible = false;
         PauseMenuUI.SetActive(false);
         PlayerUI.SetActive(true);
+        DeathScreen.SetActive(true);
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
@@ -41,6 +44,7 @@ public class PauseMenuController : MonoBehaviour
         Cursor.visible = true;
         PauseMenuUI.SetActive(true);
         PlayerUI.SetActive(false);
+        DeathScreen.SetActive(false);
         Time.timeScale = 0f;
         GameIsPaused = true;
     }

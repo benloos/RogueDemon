@@ -63,8 +63,11 @@ public class EnemyAI : MonoBehaviour
             }
             if (playerInRange)
             {
-                anim.SetBool("PlayerInRange", true);
-                AttackPlayer();
+                if (pc.HP > 0)
+                {
+                    anim.SetBool("PlayerInRange", true);
+                    AttackPlayer();
+                }
             }
         }
     }
@@ -123,7 +126,7 @@ public class EnemyAI : MonoBehaviour
             isActive = false;
             anim.SetBool("isActive", false);
             deathSound.Play();
-            Invoke(nameof(destroyEnemy), deathTime);
+            //Invoke(nameof(destroyEnemy), deathTime);
         }
         else
         {

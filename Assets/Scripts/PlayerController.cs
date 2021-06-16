@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpforce = 10f;
     [SerializeField] private ParticleSystem particle;
     [SerializeField] private Camera camera;
+    [SerializeField] private Image DeathImage;
+    [SerializeField] private Image DeathText; 
     private float orig_height;
     private float crouch_height;
     private bool sprinting = false;
@@ -148,8 +151,8 @@ public class PlayerController : MonoBehaviour
         if (HP < 1)
         {
             HP = 0;
-            Time.timeScale = 0.3f;
-            // TODO: death
+            Time.timeScale = 0.25f;
+            StartCoroutine(DeathSequence());
         }
     }
 
@@ -160,6 +163,14 @@ public class PlayerController : MonoBehaviour
         {
             HP = maxHP;
         }
+    }
+
+    IEnumerator DeathSequence()
+    {
+        LeanTween.alpha(DeathImage.rectTransform, 1f, 0.5f).setEase(LeanTweenType.easeInOutCubic);
+        LeanTween.alpha(DeathText.rectTransform, 1f, 1f).setEase(LeanTweenType.easeInCubic);
+        yield return new WaitForSeconds(1.75f);
+        GameManager.current.LoadMenuScene();
     }
 
 }
