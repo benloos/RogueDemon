@@ -3233,6 +3233,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1411782532}
+    - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
       propertyPath: isActive
       value: 0
       objectReference: {fileID: 0}
@@ -4442,6 +4446,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1411782532}
+    - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
       propertyPath: isActive
       value: 0
       objectReference: {fileID: 0}
@@ -4667,6 +4675,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1411782532}
+    - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
       propertyPath: isActive
       value: 0
       objectReference: {fileID: 0}
@@ -4787,6 +4799,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1411782532}
     - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
       propertyPath: isActive
       value: 0
@@ -9513,6 +9529,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &1411782532 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2369464075740059788, guid: 17276ea9e9def5c49bd717c4ac5f5d12, type: 3}
+  m_PrefabInstance: {fileID: 155135763}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1439251791
 Mesh:
   m_ObjectHideFlags: 0
@@ -9848,6 +9869,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1411782532}
     - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
       propertyPath: isActive
       value: 0
@@ -10401,6 +10426,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1411782532}
     - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
       propertyPath: isActive
       value: 0
@@ -11447,6 +11476,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1411782532}
+    - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
       propertyPath: isActive
       value: 0
       objectReference: {fileID: 0}
@@ -11838,7 +11871,7 @@ PrefabInstance:
     - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1411782532}
     - target: {fileID: 694439588632116689, guid: 07585cb13860482489a831190360f97c, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -12717,9 +12750,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1635579246, guid: 07585cb13860482489a831190360f97c, type: 3}
-      propertyPath: isActive
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1411782532}
     - target: {fileID: 694439588632116689, guid: 07585cb13860482489a831190360f97c, type: 3}
       propertyPath: m_RootOrder
       value: 1

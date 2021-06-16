@@ -9,12 +9,15 @@ public class Shoot : MonoBehaviour
     [SerializeField] Camera camera;
     private PlayerController pc;
     private ParticleSystem particle;
+    private Light pointlight;
     float timer;
 
     void Start(){
         pc = GameManager.current.player.GetComponent<PlayerController>();
         timer = 1.0f / (float)pc.Firerate;
         particle = GetComponentInChildren<ParticleSystem>();
+        pointlight = particle.GetComponentInChildren<Light>();
+        //pointlight.enabled = false;
     }
     // Update is called once per frame
     void Update()
@@ -25,6 +28,7 @@ public class Shoot : MonoBehaviour
             //spawn Raycast
             //illuminate Raycast
             particle.Play();
+            //pointlight.enabled = true;
             RaycastHit hit;
             if (Physics.Raycast(camera.transform.position, transform.right, out hit))
             {
@@ -36,6 +40,7 @@ public class Shoot : MonoBehaviour
                 }
 
             }
+            //pointlight.enabled = false;
         }
         timer += Time.deltaTime;
     }
