@@ -126,6 +126,7 @@ public class EnemyAI : MonoBehaviour
             isActive = false;
             anim.SetBool("isActive", false);
             deathSound.Play();
+            Destroy(GetComponent<CapsuleCollider>());
             //Invoke(nameof(destroyEnemy), deathTime);
         }
         else
