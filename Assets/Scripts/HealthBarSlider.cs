@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class HealthBarSlider : MonoBehaviour
 {
-    public Image healthBar;
+    private Image healthBar;
     private PlayerController pc;
 
     private void Start()
     {
+        healthBar = GetComponent<Image>();
         pc = GameManager.current.player.GetComponent<PlayerController>();
     }
 

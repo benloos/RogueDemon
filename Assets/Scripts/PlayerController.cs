@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
- 
+
     public CharacterController controller;
     [SerializeField] private float speed = 12f;
     [SerializeField] private CapsuleCollider groundCheck;
@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem particle;
     [SerializeField] private Camera camera;
     [SerializeField] private Image DeathImage;
-    [SerializeField] private Image DeathText; 
+    [SerializeField] private Image DeathText;
     private Vector3 move;
     private float orig_height;
     private float crouch_height;
@@ -26,7 +26,9 @@ public class PlayerController : MonoBehaviour
     private float idleCounter;
     private Vector3 targetWeaponBobPosition;
     private float DashStartTime;
-    private bool isDashing;
+    public bool isDashing;
+    private bool canDash;
+    public float dashCD;
     
 
     // Player Stats
@@ -39,6 +41,8 @@ public class PlayerController : MonoBehaviour
         orig_height = controller.height;
         crouch_height = controller.height/2;
         weaponOrigin = weapon.transform.localPosition;
+        canDash = true;
+        dashCD = 1.5f;
     }
 
     // Update is called once per frame
@@ -156,25 +160,37 @@ public class PlayerController : MonoBehaviour
     }
 
     void HandleDash(){
+        
         bool isTryingToDash = Input.GetKeyDown(KeyCode.LeftShift);
 
-        if (isTryingToDash && !isDashing){
+        if (canDash && isTryingToDash && !isDashing)
+        {
             onStartDash();
+            Invoke(nameof(ResetDash), dashCD);
         }
 
-        if(isDashing){
-            if(Time.time - DashStartTime <= 0.2f){
-                if(move.Equals(Vector3.zero)){
+        if (isDashing)
+        {
+            if (Time.time - DashStartTime <= 0.2f)
+            {
+                if (move.Equals(Vector3.zero))
+                {
                     controller.Move(transform.forward * 30f * Time.deltaTime);
-                } else {
+                }
+                else
+                {
                     controller.Move(move.normalized * 30f * Time.deltaTime);
                 }
-            } else {
+            }
+            else
+            {
                 onEndDash();
             }
         }
     }
+
     void onStartDash(){
+        canDash = false;
         isDashing = true;
         DashStartTime = Time.time;
     }
@@ -182,6 +198,11 @@ public class PlayerController : MonoBehaviour
     void onEndDash(){
         isDashing = false;
         DashStartTime= 0;
+    }
+
+    void ResetDash()
+    {
+        canDash = true;
     }
 }
 
