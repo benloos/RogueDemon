@@ -46,6 +46,7 @@ public class PowerUpObject : MonoBehaviour
                 ps.Play();
                 Destroy(gameObject);
                 pc.maxHP += amount;
+                pc.Heal(amount / 2);
             }
             else if (type == PowerUpType.DamageUp)
             {

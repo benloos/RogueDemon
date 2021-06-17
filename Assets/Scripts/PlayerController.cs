@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     public CharacterController controller;
     [SerializeField] private float speed = 12f;
-    [SerializeField] private CapsuleCollider groundCheck;
+    [SerializeField] private GameObject groundCheck;
     [SerializeField] private float gravity = -12f; //-9.81
     [SerializeField] private GameObject weapon;
     [SerializeField] private Vector3 velocity;
@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera camera;
     [SerializeField] private Image DeathImage;
     [SerializeField] private Image DeathText;
+    private CapsuleCollider playerCollider;
     private Vector3 move;
     private float orig_height;
     private float crouch_height;
@@ -29,7 +30,6 @@ public class PlayerController : MonoBehaviour
     public bool isDashing;
     private bool canDash;
     public float dashCD;
-    
 
     // Player Stats
     public int maxHP = 100;
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
         weaponOrigin = weapon.transform.localPosition;
         canDash = true;
         dashCD = 1.5f;
+        playerCollider = GetComponent<CapsuleCollider>();
     }
 
     // Update is called once per frame
@@ -117,11 +118,13 @@ public class PlayerController : MonoBehaviour
 
     // check for floor or other object beneath the player with Raycast
     private bool IsGrounded(){
-        
-        bool groundhit = Physics.Raycast(groundCheck.bounds.center, Vector3.down, groundCheck.bounds.extents.y + 0.1f);
-        
-        if(groundhit){
-            return true;
+        Collider[] groundhit = Physics.OverlapSphere(groundCheck.transform.position, 0.3f); //Physics.Raycast(groundCheck.bounds.center, Vector3.down, groundCheck.bounds.extents.y + 0.1f);
+        foreach (Collider col in groundhit)
+        {
+            if (col.gameObject.layer != 7 && !col.isTrigger)
+            {
+                return true;
+            }
         }
         return false;
     }
