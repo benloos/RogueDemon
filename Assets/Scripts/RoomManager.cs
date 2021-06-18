@@ -51,7 +51,7 @@ public class RoomManager : MonoBehaviour
             // Check if Zombies are dead
             foreach (Transform child in Zombies.transform)
             {
-                if (child.GetComponent<EnemyAI>().isActive)
+                if (child.GetComponent<EnemyAI>().health > 0)
                 {
                     allZombiesDead = false;
                 }
@@ -66,6 +66,10 @@ public class RoomManager : MonoBehaviour
     public void ClearedRoom()
     {
         GameManager.current.openAdjacentDoors(roomID);
+        if (roomID > 0)
+        {
+            AudioSource.PlayClipAtPoint(GameManager.current.roomClear, GameManager.current.player.transform.position + new Vector3(0f,2f,0f), 3f);
+        }
         isCleared = true;
     }
 

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private int roomLength = 60, roomWidth = 30; // Edges at 0,0 and 60,-30
     private List<int[,]> seeds;
     private int seed = 0;
+    public AudioClip roomClear;
 
     private Vector3 spawnPoint;
 

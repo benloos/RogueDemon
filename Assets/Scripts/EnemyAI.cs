@@ -27,7 +27,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private AudioSource attSound;
 
     //HP
-    [SerializeField] private int health=100;
+    public int health=100;
     [SerializeField] private float deathTime;
     [SerializeField] private float staggerTime;
     [SerializeField] private AudioSource deathSound;
