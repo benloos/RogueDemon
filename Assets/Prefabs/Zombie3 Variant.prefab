@@ -319,12 +319,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   anim: {fileID: 5537617672297259521}
-  attackDamage: 15
+  attackDamage: 20
   timeBetweenAttacks: 1.39
   attackPoint: {fileID: 1966005497}
   attScream: {fileID: 5469551949839552977}
   attSound: {fileID: 2729492117779793240}
-  health: 50
+  health: 100
   deathTime: 1.5
   staggerTime: 0.1
   deathSound: {fileID: 2796987842950305291}

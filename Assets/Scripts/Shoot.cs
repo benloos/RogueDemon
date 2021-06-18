@@ -11,6 +11,8 @@ public class Shoot : MonoBehaviour
     private ParticleSystem particle;
     private Light pointlight;
     private AudioSource schuss_sound;
+    [SerializeField] private AudioClip[] sounds;
+    [SerializeField] private int selectedShootSound = 0;
     float timer;
 
     void Start(){
@@ -19,6 +21,7 @@ public class Shoot : MonoBehaviour
         particle = GetComponentInChildren<ParticleSystem>();
         pointlight = particle.GetComponentInChildren<Light>();
         schuss_sound = GetComponent<AudioSource>();
+        schuss_sound.clip = sounds[selectedShootSound];
         //pointlight.enabled = false;
     }
     // Update is called once per frame
@@ -30,6 +33,7 @@ public class Shoot : MonoBehaviour
             //spawn Raycast
             //illuminate Raycast
             particle.Play();
+            schuss_sound.pitch = Random.Range(0.9f, 1.2f);
             schuss_sound.Play();
             //pointlight.enabled = true;
             RaycastHit hit;

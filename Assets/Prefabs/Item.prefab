@@ -112,7 +112,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   amount: 10
-  pickupSound: {fileID: 8300000, guid: 3fc3258a77fc215418a41fb52e1fd194, type: 3}
+  pickupSound:
+  - {fileID: 8300000, guid: 3fc3258a77fc215418a41fb52e1fd194, type: 3}
+  - {fileID: 8300000, guid: 0d5bb830fcf8afd449673e714993e283, type: 3}
+  - {fileID: 8300000, guid: e27802fcce1a1584f88576e30f143765, type: 3}
+  - {fileID: 8300000, guid: 7d47c8f450b2b30498c855087884fb10, type: 3}
+  selectedPickupSound: 3
 --- !u!135 &3764471778376220372
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -20,13 +20,15 @@ public class PowerUpObject : MonoBehaviour
     [Header("Current Value += Amount.")]
     public int amount = 10;
 
-    [SerializeField] private AudioClip pickupSound;
+    [SerializeField] private AudioClip[] pickupSound;
+    [SerializeField] private int selectedPickupSound = 3;
 
     private void Start()
     {
         pc = GameManager.current.player.GetComponent<PlayerController>();
         ps = GetComponentInChildren<ParticleSystem>();
         ps.transform.parent = null;
+        //selectedPickupSound = Random.Range(0, pickupSound.Length);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,14 +37,14 @@ public class PowerUpObject : MonoBehaviour
         {
             if (type == PowerUpType.Heal && pc.HP < pc.maxHP)
             {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+                AudioSource.PlayClipAtPoint(pickupSound[selectedPickupSound], transform.position);
                 ps.Play();
                 Destroy(gameObject);
                 pc.Heal(amount);
             }
             else if (type == PowerUpType.HpUp)
             {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+                AudioSource.PlayClipAtPoint(pickupSound[selectedPickupSound], transform.position);
                 ps.Play();
                 Destroy(gameObject);
                 pc.maxHP += amount;
@@ -50,14 +52,14 @@ public class PowerUpObject : MonoBehaviour
             }
             else if (type == PowerUpType.DamageUp)
             {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+                AudioSource.PlayClipAtPoint(pickupSound[selectedPickupSound], transform.position);
                 ps.Play();
                 Destroy(gameObject);
                 pc.DMG += amount;
             }
             else if (type == PowerUpType.FirerateUp)
             {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+                AudioSource.PlayClipAtPoint(pickupSound[selectedPickupSound], transform.position);
                 ps.Play();
                 Destroy(gameObject);
                 pc.Firerate += amount;
