@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpforce = 10f;
     [SerializeField] private ParticleSystem particle;
     [SerializeField] private Camera camera;
-    [SerializeField] private Image DeathImage;
+    [SerializeField] private Image blackImage;
     [SerializeField] private Image DeathText;
     private CapsuleCollider playerCollider;
     private Vector3 move;
@@ -142,7 +142,6 @@ public class PlayerController : MonoBehaviour
         if (HP < 1)
         {
             HP = 0;
-            Time.timeScale = 0.25f;
             StartCoroutine(DeathSequence());
         }
     }
@@ -158,8 +157,9 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DeathSequence()
     {
+        Time.timeScale = 0.25f;
         AudioSource.PlayClipAtPoint(deathClip, transform.position);
-        LeanTween.alpha(DeathImage.rectTransform, 1f, 0.5f).setEase(LeanTweenType.easeInOutCubic);
+        LeanTween.alpha(blackImage.rectTransform, 1f, 0.5f).setEase(LeanTweenType.easeInOutCubic);
         LeanTween.alpha(DeathText.rectTransform, 1f, 1f).setEase(LeanTweenType.easeInCubic);
         yield return new WaitForSeconds(1.75f);
         GameManager.current.LoadMenuScene();

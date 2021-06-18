@@ -10,6 +10,7 @@ public class RoomManager : MonoBehaviour
 
     public bool isCleared = false;
     public bool isStarted = false;
+    public bool bossRoom = false;
 
     public GameObject DoorNegativeX;
     public GameObject DoorNegativeZ;
@@ -68,7 +69,11 @@ public class RoomManager : MonoBehaviour
         GameManager.current.openAdjacentDoors(roomID);
         if (roomID > 0)
         {
-            AudioSource.PlayClipAtPoint(GameManager.current.roomClear, GameManager.current.player.transform.position + new Vector3(0f,2f,0f), 3f);
+            AudioSource.PlayClipAtPoint(GameManager.current.roomClear, GameManager.current.player.transform.position + new Vector3(0f, 2f, 0f), 3f);
+        }
+        if (bossRoom)
+        {
+            DoorNegativeX.GetComponent<DoorOpener>().Open();
         }
         isCleared = true;
     }

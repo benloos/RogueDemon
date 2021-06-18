@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject player;
 
-    [SerializeField] private GameObject[] rooms;
+    public GameObject[] rooms;
     private int roomLength = 60, roomWidth = 30; // Edges at 0,0 and 60,-30
     private List<int[,]> seeds;
     private int seed = 0;
@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (seeds[seed][i, j] == rooms.Length - 1)
                 {
+                    rooms[rooms.Length - 1].GetComponent<RoomManager>().bossRoom = true;
                     rooms[rooms.Length-1].GetComponent<RoomManager>().setID(rooms.Length - 1);
                     rooms[rooms.Length-1].transform.position = new Vector3(i * roomLength + 8f, 0, j * roomWidth);
                 }
