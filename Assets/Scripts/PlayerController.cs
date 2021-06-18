@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     private bool canDash;
     public float dashCD;
 
+    public AudioClip deathClip;
+
     // Player Stats
     public int maxHP = 100;
     public int HP = 100;
@@ -156,6 +158,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DeathSequence()
     {
+        AudioSource.PlayClipAtPoint(deathClip, transform.position);
         LeanTween.alpha(DeathImage.rectTransform, 1f, 0.5f).setEase(LeanTweenType.easeInOutCubic);
         LeanTween.alpha(DeathText.rectTransform, 1f, 1f).setEase(LeanTweenType.easeInCubic);
         yield return new WaitForSeconds(1.75f);
