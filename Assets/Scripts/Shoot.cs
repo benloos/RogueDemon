@@ -8,7 +8,8 @@ public class Shoot : MonoBehaviour
     [SerializeField] GameObject weapon;
     [SerializeField] Camera camera;
     private PlayerController pc;
-    private ParticleSystem particle;
+    [SerializeField] private ParticleSystem particleBullet;
+    [SerializeField] private ParticleSystem particleHit;
     private Light pointlight;
     private AudioSource schuss_sound;
     [SerializeField] private AudioClip[] sounds;
@@ -18,8 +19,7 @@ public class Shoot : MonoBehaviour
     void Start(){
         pc = GameManager.current.player.GetComponent<PlayerController>();
         timer = 1.0f / (float)pc.Firerate;
-        particle = GetComponentInChildren<ParticleSystem>();
-        pointlight = particle.GetComponentInChildren<Light>();
+        pointlight = particleBullet.GetComponentInChildren<Light>();
         schuss_sound = GetComponent<AudioSource>();
         schuss_sound.clip = sounds[selectedShootSound];
         //pointlight.enabled = false;
@@ -32,7 +32,7 @@ public class Shoot : MonoBehaviour
             timer = 0;
             //spawn Raycast
             //illuminate Raycast
-            particle.Play();
+            particleBullet.Play();
             schuss_sound.pitch = Random.Range(0.9f, 1.2f);
             schuss_sound.Play();
             //pointlight.enabled = true;
@@ -44,6 +44,10 @@ public class Shoot : MonoBehaviour
                 {
                     EnemyAI script = hit.transform.GetComponent<EnemyAI>();
                     script.TakeDamage(pc.DMG);
+
+                    particleHit.transform.position = hit.point;
+                    particleHit.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+                    particleHit.Play();
                 }
 
             }
