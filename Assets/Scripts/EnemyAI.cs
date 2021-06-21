@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] public Transform attackPoint;
     [SerializeField] private AudioSource attScream;
     [SerializeField] private AudioSource attSound;
+    [SerializeField] private AudioSource damagesound;
 
     //HP
     public int health=100;
@@ -119,6 +120,13 @@ public class EnemyAI : MonoBehaviour
         anim.SetFloat("HP", health);
         Debug.Log(health);
         agent.SetDestination(transform.position);
+        
+        Debug.Log("false heißt der bums ist nicht am playen" + damagesound.isPlaying);
+        if(damagesound.isPlaying == false){
+            Debug.Log("hello?");
+            damagesound.Play();
+        }
+            
 
         if (health <= 0)
         {
