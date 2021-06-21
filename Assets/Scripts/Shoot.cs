@@ -9,7 +9,8 @@ public class Shoot : MonoBehaviour
     [SerializeField] Camera camera;
     private PlayerController pc;
     [SerializeField] private ParticleSystem particleBullet;
-    [SerializeField] private ParticleSystem particleHit;
+    [SerializeField] private ParticleSystem particleHit_brown;
+    [SerializeField] private ParticleSystem particleHit_red;
     private Light pointlight;
     private AudioSource schuss_sound;
     [SerializeField] private AudioClip[] sounds;
@@ -45,9 +46,12 @@ public class Shoot : MonoBehaviour
                     EnemyAI script = hit.transform.GetComponent<EnemyAI>();
                     script.TakeDamage(pc.DMG);
 
-                    particleHit.transform.position = hit.point;
-                    particleHit.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
-                    particleHit.Play();
+                    particleHit_brown.transform.position = hit.point;
+                    particleHit_brown.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+                    particleHit_brown.Play();
+                    particleHit_red.transform.position = hit.point;
+                    particleHit_red.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+                    particleHit_red.Play();
                 }
 
             }
