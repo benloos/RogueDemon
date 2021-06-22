@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(int dmg)
     {
-
+        StartCoroutine(Shake(0.15f, 0.15f));
         HP -= dmg;
         if (HP < 1)
         {
@@ -213,5 +213,22 @@ public class PlayerController : MonoBehaviour
     {
         canDash = true;
     }
+    IEnumerator Shake (float duration, float magnitude){
+        Vector3 originalPos = camera.transform.localPosition;
+
+        float elapsed = 0.0f;
+
+        while (elapsed < duration){
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude + 1;
+
+            camera.transform.localPosition = new Vector3(x, y, originalPos.z);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+        camera.transform.localPosition = originalPos;
+    } 
 }
 
