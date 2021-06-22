@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DontDestroyAudio : MonoBehaviour
 {
-    private DontDestroyAudio current;
+    static DontDestroyAudio current;
 
     public AudioClip[] menumusic;
 
@@ -13,11 +13,11 @@ public class DontDestroyAudio : MonoBehaviour
         if (current == null)
         {
             current = this;
+            DontDestroyOnLoad(transform.gameObject);
         } else
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(transform.gameObject);
         AudioSource music = GetComponent<AudioSource>();
         music.clip = menumusic[Random.Range(0,menumusic.Length)];
         music.pitch = Random.Range(0.7f, 1.1f);
