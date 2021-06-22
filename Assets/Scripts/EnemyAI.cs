@@ -75,13 +75,16 @@ public class EnemyAI : MonoBehaviour
 
     void ChasePlayer()
     {
-        if(agent.SetDestination(player.position))
+        if (player.position != oldPos)
         {
-            oldPos = player.position;
-        }
-        else
-        {
-            agent.SetDestination(oldPos);
+            if (agent.SetDestination(player.position))
+            {
+                oldPos = player.position;
+            }
+            else
+            {
+                agent.SetDestination(oldPos);
+            }
         }
     }
 
@@ -118,12 +121,9 @@ public class EnemyAI : MonoBehaviour
     {
         health = health - dmg;
         anim.SetFloat("HP", health);
-        Debug.Log(health);
         agent.SetDestination(transform.position);
         
-        Debug.Log("false heißt der bums ist nicht am playen" + damagesound.isPlaying);
         if(damagesound.isPlaying == false){
-            Debug.Log("hello?");
             damagesound.Play();
         }
             

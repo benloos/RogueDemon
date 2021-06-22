@@ -69,7 +69,7 @@ public class RoomManager : MonoBehaviour
         GameManager.current.openAdjacentDoors(roomID);
         if (roomID > 0)
         {
-            AudioSource.PlayClipAtPoint(GameManager.current.roomClear, GameManager.current.player.transform.position + new Vector3(0f, 2f, 0f), 3f);
+            GameManager.current.level_completion.Play();
         }
         if (bossRoom)
         {

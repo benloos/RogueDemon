@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
     private int roomLength = 60, roomWidth = 30; // Edges at 0,0 and 60,-30
     private List<int[,]> seeds;
     private int seed = 0;
-    public AudioClip roomClear;
+    public AudioSource level_completion;
+    [SerializeField] AudioClip roomClear;
 
     private Vector3 spawnPoint;
 
@@ -145,6 +146,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         resetPlayerPos();
+        level_completion = GetComponent<AudioSource>();
+        level_completion.clip = roomClear;
     }
 
     public void resetPlayerPos()
