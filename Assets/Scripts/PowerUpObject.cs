@@ -6,6 +6,7 @@ public class PowerUpObject : MonoBehaviour
 {
     PlayerController pc;
     ParticleSystem ps;
+    AudioSource pickup_sound;
 
     public enum PowerUpType
     {
@@ -21,14 +22,15 @@ public class PowerUpObject : MonoBehaviour
     public int amount = 10;
 
     [SerializeField] private AudioClip[] pickupSound;
-    [SerializeField] private int selectedPickupSound = 3;
+    [SerializeField] private int selectedPickupSound = 0;
 
     private void Start()
     {
         pc = GameManager.current.player.GetComponent<PlayerController>();
         ps = GetComponentInChildren<ParticleSystem>();
         ps.transform.parent = null;
-        //selectedPickupSound = Random.Range(0, pickupSound.Length);
+        pickup_sound = ps.GetComponent<AudioSource>();
+        pickup_sound.clip = pickupSound[selectedPickupSound];
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,14 +39,14 @@ public class PowerUpObject : MonoBehaviour
         {
             if (type == PowerUpType.Heal && pc.HP < pc.maxHP)
             {
-                AudioSource.PlayClipAtPoint(pickupSound[selectedPickupSound], transform.position);
+                pickup_sound.Play();
                 ps.Play();
                 Destroy(gameObject);
                 pc.Heal(amount);
             }
             else if (type == PowerUpType.HpUp)
             {
-                AudioSource.PlayClipAtPoint(pickupSound[selectedPickupSound], transform.position);
+                pickup_sound.Play();
                 ps.Play();
                 Destroy(gameObject);
                 pc.maxHP += amount;
@@ -52,14 +54,14 @@ public class PowerUpObject : MonoBehaviour
             }
             else if (type == PowerUpType.DamageUp)
             {
-                AudioSource.PlayClipAtPoint(pickupSound[selectedPickupSound], transform.position);
+                pickup_sound.Play();
                 ps.Play();
                 Destroy(gameObject);
                 pc.DMG += amount;
             }
             else if (type == PowerUpType.FirerateUp)
             {
-                AudioSource.PlayClipAtPoint(pickupSound[selectedPickupSound], transform.position);
+                pickup_sound.Play();
                 ps.Play();
                 Destroy(gameObject);
                 pc.Firerate += amount;

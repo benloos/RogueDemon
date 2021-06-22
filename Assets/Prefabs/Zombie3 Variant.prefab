@@ -70,7 +70,7 @@ AudioSource:
   m_GameObject: {fileID: 3148225898271225528}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3083806357648994036, guid: d46e138b22303d64aaad252fbf5ef45e, type: 2}
   m_audioClip: {fileID: 8300000, guid: 584e18955969cb144a2db3fc62d43650, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
@@ -197,7 +197,7 @@ AudioSource:
   m_GameObject: {fileID: 4451849137683662284}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3083806357648994036, guid: d46e138b22303d64aaad252fbf5ef45e, type: 2}
   m_audioClip: {fileID: 8300000, guid: 98b2b06f8a1f96541b5350263ef9607f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
@@ -324,7 +324,7 @@ AudioSource:
   m_GameObject: {fileID: 6085276719078084666}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3083806357648994036, guid: d46e138b22303d64aaad252fbf5ef45e, type: 2}
   m_audioClip: {fileID: 8300000, guid: d093a2c567d803d479a03be8bdfb4991, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
@@ -466,6 +466,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ZombieP
       objectReference: {fileID: 0}
+    - target: {fileID: 6492780623698713289, guid: 06cb2b131fe009c47a523671a8fa9ed8, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -3083806357648994036, guid: d46e138b22303d64aaad252fbf5ef45e, type: 2}
     - target: {fileID: 8429865231615740692, guid: 06cb2b131fe009c47a523671a8fa9ed8, type: 3}
       propertyPath: m_RootOrder
       value: 0

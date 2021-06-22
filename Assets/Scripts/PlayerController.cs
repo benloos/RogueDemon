@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public CharacterController controller;
+    AudioSource death_sound;
     [SerializeField] private float speed = 12f;
     [SerializeField] private GameObject groundCheck;
     [SerializeField] private float gravity = -12f; //-9.81
@@ -46,6 +47,8 @@ public class PlayerController : MonoBehaviour
         canDash = true;
         dashCD = 1.5f;
         playerCollider = GetComponent<CapsuleCollider>();
+        death_sound = GetComponent<AudioSource>();
+        death_sound.clip = deathClip;
     }
 
     // Update is called once per frame
@@ -158,7 +161,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator DeathSequence()
     {
         Time.timeScale = 0.25f;
-        AudioSource.PlayClipAtPoint(deathClip, transform.position);
+        death_sound.Play();
         LeanTween.alpha(blackImage.rectTransform, 1f, 0.5f).setEase(LeanTweenType.easeInOutCubic);
         LeanTween.alpha(DeathText.rectTransform, 1f, 1f).setEase(LeanTweenType.easeInCubic);
         yield return new WaitForSeconds(1.75f);
