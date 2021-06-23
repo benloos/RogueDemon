@@ -64,11 +64,8 @@ public class EnemyAI : MonoBehaviour
             }
             if (playerInRange)
             {
-                if (pc.HP > 0)
-                {
-                    anim.SetBool("PlayerInRange", true);
-                    AttackPlayer();
-                }
+                anim.SetBool("PlayerInRange", true);
+                AttackPlayer();
             }
         }
     }
@@ -101,8 +98,11 @@ public class EnemyAI : MonoBehaviour
             //DmgPlayer
             if(hitEnemies.Length>0)
             {
-                attSound.Play();
-                pc.Damage(attackDamage);
+                if (pc.HP > 0)
+                {
+                    attSound.Play();
+                    pc.Damage(attackDamage);
+                }
             }
 
             hasAttacked = true;
