@@ -59,13 +59,23 @@ public class EnemyAI : MonoBehaviour
 
             if (!playerInRange)
             {
-                ChasePlayer();
+                anim.SetBool("Attacking", false);
                 anim.SetBool("PlayerInRange", false);
+                ChasePlayer();
             }
             if (playerInRange)
             {
+<<<<<<< Updated upstream
                 anim.SetBool("PlayerInRange", true);
                 AttackPlayer();
+=======
+                if (pc.HP > 0)
+                {
+                    anim.SetBool("PlayerInRange", true);
+                    Debug.Log(playerInRange);
+                    AttackPlayer();
+                }
+>>>>>>> Stashed changes
             }
         }
     }
@@ -87,6 +97,7 @@ public class EnemyAI : MonoBehaviour
 
     void AttackPlayer()
     {
+        anim.SetBool("Attacking", true);
         attScream.Play();
         agent.SetDestination(transform.position);
         transform.LookAt(player);
