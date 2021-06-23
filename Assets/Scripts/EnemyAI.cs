@@ -65,17 +65,13 @@ public class EnemyAI : MonoBehaviour
             }
             if (playerInRange)
             {
-<<<<<<< Updated upstream
-                anim.SetBool("PlayerInRange", true);
-                AttackPlayer();
-=======
+
                 if (pc.HP > 0)
                 {
                     anim.SetBool("PlayerInRange", true);
                     Debug.Log(playerInRange);
                     AttackPlayer();
                 }
->>>>>>> Stashed changes
             }
         }
     }
