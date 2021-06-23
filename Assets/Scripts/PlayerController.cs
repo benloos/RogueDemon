@@ -104,15 +104,15 @@ public class PlayerController : MonoBehaviour
         //HeadBob
         if(IsGrounded()){
             if(x == 0 && z == 0){
-                HeadBob(idleCounter, 0.025f, 0.025f);
+                HeadBob(idleCounter, 0.0125f, 0.0125f);
                 idleCounter += Time.deltaTime;
                 weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, targetWeaponBobPosition, Time.deltaTime * 2f);   
             } else if(!sprinting){
-                HeadBob(movementCounter, 0.035f, 0.035f);
+                HeadBob(movementCounter, 0.0175f, 0.0175f);
                 movementCounter += Time.deltaTime * 3.5f;
                 weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, targetWeaponBobPosition, Time.deltaTime * 6f);
             } else {
-                HeadBob(movementCounter, 0.045f, 0.045f);
+                HeadBob(movementCounter, 0.0225f, 0.0225f);
                 movementCounter += Time.deltaTime * 8f;
                 weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, targetWeaponBobPosition, Time.deltaTime * 10f);
             }
