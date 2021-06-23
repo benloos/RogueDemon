@@ -5,12 +5,13 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private float mouseSensitivity = 100f;
+    private float mouseSensitivity;
     public Transform playerBody;
     float xRotation = 0f;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 100f);
     }
 
     // Update is called once per frame

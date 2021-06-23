@@ -43,6 +43,7 @@ public class PowerUpObject : MonoBehaviour
                 ps.Play();
                 Destroy(gameObject);
                 pc.Heal(amount);
+                StartCoroutine(destroyParticleAfter(1));
             }
             else if (type == PowerUpType.HpUp)
             {
@@ -51,6 +52,7 @@ public class PowerUpObject : MonoBehaviour
                 Destroy(gameObject);
                 pc.maxHP += amount;
                 pc.Heal(amount / 2);
+                StartCoroutine(destroyParticleAfter(1));
             }
             else if (type == PowerUpType.DamageUp)
             {
@@ -58,6 +60,7 @@ public class PowerUpObject : MonoBehaviour
                 ps.Play();
                 Destroy(gameObject);
                 pc.DMG += amount;
+                StartCoroutine(destroyParticleAfter(1));
             }
             else if (type == PowerUpType.FirerateUp)
             {
@@ -65,9 +68,9 @@ public class PowerUpObject : MonoBehaviour
                 ps.Play();
                 Destroy(gameObject);
                 pc.Firerate += amount;
+                StartCoroutine(destroyParticleAfter(1));
             }
         }
-        StartCoroutine(destroyParticleAfter(1));
     }
 
     IEnumerator destroyParticleAfter(float s)
