@@ -9,6 +9,7 @@ public class Shoot : MonoBehaviour
     [SerializeField] Camera camera;
     private PlayerController pc;
     [SerializeField] private ParticleSystem particleBullet;
+    [SerializeField] private ParticleSystem particleBulletShells;
     [SerializeField] private ParticleSystem particleHit_brown;
     [SerializeField] private ParticleSystem particleHit_red;
     private Light pointlight;
@@ -34,6 +35,7 @@ public class Shoot : MonoBehaviour
             //spawn Raycast
             //illuminate Raycast
             particleBullet.Play();
+            particleBulletShells.Play();
             schuss_sound.pitch = Random.Range(0.9f, 1.2f);
             schuss_sound.Play();
             //pointlight.enabled = true;
