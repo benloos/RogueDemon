@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void onStartDash(){
-        camera.fieldOfView = 80f;
+        camera.fieldOfView = 75f;
         canDash = false;
         isDashing = true;
         DashStartTime = Time.time;

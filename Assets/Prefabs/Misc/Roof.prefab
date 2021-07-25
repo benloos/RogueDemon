@@ -23587,6 +23587,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lightball
       objectReference: {fileID: 0}
+    - target: {fileID: 2747632290964901985, guid: 134d39f122ab651429d56a7791cb3d64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2747632290964901998, guid: 134d39f122ab651429d56a7791cb3d64, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -23648,6 +23652,10 @@ PrefabInstance:
     - target: {fileID: 2747632290964901985, guid: 134d39f122ab651429d56a7791cb3d64, type: 3}
       propertyPath: m_Name
       value: Lightball (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747632290964901985, guid: 134d39f122ab651429d56a7791cb3d64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2747632290964901998, guid: 134d39f122ab651429d56a7791cb3d64, type: 3}
       propertyPath: m_RootOrder

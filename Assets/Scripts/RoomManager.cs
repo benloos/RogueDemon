@@ -19,6 +19,8 @@ public class RoomManager : MonoBehaviour
 
     public GameObject Zombies;
 
+    public GameObject[] lights;
+
     private void Start()
     {
         Zombies.SetActive(false);
@@ -35,6 +37,13 @@ public class RoomManager : MonoBehaviour
             if (other.CompareTag("Player"))
             {
                 isStarted = true;
+                /*if (lights != null)
+                {
+                    foreach (var light in lights)
+                    {
+                        light.SetActive(true);
+                    }
+                }*/
                 DoorNegativeX.GetComponent<DoorOpener>().Close();
                 DoorNegativeZ.GetComponent<DoorOpener>().Close();
                 DoorPositiveX.GetComponent<DoorOpener>().Close();
@@ -67,6 +76,13 @@ public class RoomManager : MonoBehaviour
     public void ClearedRoom()
     {
         GameManager.current.openAdjacentDoors(roomID);
+        if (lights != null)
+        {
+            foreach (var light in lights)
+            {
+                light.SetActive(false);
+            }
+        }
         if (roomID > 0)
         {
             GameManager.current.level_completion.Play();
