@@ -32,6 +32,10 @@ public class RoomManager : MonoBehaviour
         {
             ClearedRoom();
         }
+        else if (Zombies == null)
+        {
+            ClearedRoom();
+        }
         else if (!isStarted && !isCleared)
         {
             if (other.CompareTag("Player"))
