@@ -10,12 +10,14 @@ public class GameManager : MonoBehaviour
     public GameObject player;
 
     public GameObject[] rooms;
-    private int roomLength = 60, roomWidth = 30; // Edges at 0,0 and 60,-30
+    public int roomLength = 60, roomWidth = 30; // Edges at 0,0 and 60,-30
     private List<int[,]> seeds;
     private int seed = 0;
     public AudioSource level_completion;
     [SerializeField] AudioClip roomClear;
 
+    public bool setSpawnPoint = false;
+    public Transform SpawnPointObject;
     private Vector3 spawnPoint;
 
     public struct Coords
@@ -154,7 +156,14 @@ public class GameManager : MonoBehaviour
     {
         CharacterController cc = player.GetComponent<CharacterController>();
         cc.enabled = false;
-        player.transform.position = spawnPoint + new Vector3(7.5f, 3f, -7.5f);
+        if (setSpawnPoint)
+        {
+            player.transform.position = SpawnPointObject.position;
+        }
+        else
+        {
+            player.transform.position = spawnPoint + new Vector3(7.5f, 3f, -7.5f);
+        }
         cc.enabled = true;
     }
 
