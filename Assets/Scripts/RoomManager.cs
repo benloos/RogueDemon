@@ -23,7 +23,10 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
-        Zombies.SetActive(false);
+        if (Zombies != null)
+        {
+            Zombies.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,7 +55,10 @@ public class RoomManager : MonoBehaviour
                 DoorNegativeZ.GetComponent<DoorOpener>().Close();
                 DoorPositiveX.GetComponent<DoorOpener>().Close();
                 DoorPositiveZ.GetComponent<DoorOpener>().Close();
-                Zombies.SetActive(true);
+                if (Zombies != null)
+                {
+                    Zombies.SetActive(true);
+                }
             }
         }
     }
@@ -63,11 +69,14 @@ public class RoomManager : MonoBehaviour
         {
             bool allZombiesDead = true;
             // Check if Zombies are dead
-            foreach (Transform child in Zombies.transform)
+            if (Zombies != null)
             {
-                if (child.GetComponent<EnemyAI>().health > 0)
+                foreach (Transform child in Zombies.transform)
                 {
-                    allZombiesDead = false;
+                    if (child.GetComponent<EnemyAI>().health > 0)
+                    {
+                        allZombiesDead = false;
+                    }
                 }
             }
             if (allZombiesDead)
