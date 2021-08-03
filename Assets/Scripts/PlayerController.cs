@@ -11,13 +11,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 12f;
     [SerializeField] private GameObject groundCheck;
     [SerializeField] private float gravity = -12f; //-9.81
-    [SerializeField] private GameObject weapon;
+    [SerializeField] private GameObject standard_weapon;
+    [SerializeField] private GameObject special_weapon;
     [SerializeField] private Vector3 velocity;
     [SerializeField] private float jumpforce = 10f;
     [SerializeField] private ParticleSystem particle;
     [SerializeField] private Camera camera;
     [SerializeField] private Image blackImage;
     [SerializeField] private Image DeathText;
+    private GameObject weapon;
+    private Vector3 standard_weaponOrigin;
+    private Vector3 special_weaponOrigin;
     private CapsuleCollider playerCollider;
     private Vector3 move;
     private float orig_height;
@@ -41,8 +45,12 @@ public class PlayerController : MonoBehaviour
     public int Firerate = 2;
 
     void Start(){
+        weapon = standard_weapon;
+        weapon.SetActive(true);
         orig_height = controller.height;
         crouch_height = controller.height/2;
+        standard_weaponOrigin = standard_weapon.transform.localPosition;
+        special_weaponOrigin = special_weapon.transform.localPosition;
         weaponOrigin = weapon.transform.localPosition;
         canDash = true;
         dashCD = 1.5f;
@@ -86,19 +94,10 @@ public class PlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
         
 
-
-        /**
-        Sprinten LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOL
-        */
-        /*
-        if(Input.GetKeyDown(KeyCode.LeftShift)){
-            speed = 18f;
-            sprinting = true;
-        } else if(Input.GetKeyUp(KeyCode.LeftShift)){
-            speed = 12f;
-            sprinting = false;
+        if(Input.mouseScrollDelta.y != 0.0){
+            change_weapon();
         }
-        */
+    
         
         //Debug.Log("Weapon Origin: (" + weaponOrigin.x + ", " + weaponOrigin.y + ", " + weaponOrigin.z + ")");
         //HeadBob
@@ -121,7 +120,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    // check for floor or other object beneath the player with Raycast
+    // check for floor or other object beneath the player
     private bool IsGrounded(){
         Collider[] groundhit = Physics.OverlapSphere(groundCheck.transform.position, 0.3f); //Physics.Raycast(groundCheck.bounds.center, Vector3.down, groundCheck.bounds.extents.y + 0.1f);
         foreach (Collider col in groundhit)
@@ -234,6 +233,25 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         camera.transform.localPosition = originalPos;
+    }
+
+    private void change_weapon(){
+        //put away location
+        Vector3 temp = new Vector3(-0.3f,0.3f,0);
+        temp = weaponOrigin-temp;
+        weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, temp, 0.7f);
+        weapon.SetActive(false);
+        if(weapon.Equals(standard_weapon)){
+            weapon = special_weapon;
+            weaponOrigin = special_weaponOrigin;
+        } else{
+            weapon = standard_weapon;
+            weaponOrigin = standard_weaponOrigin;
+        }
+        weapon.transform.localPosition = temp;
+        weapon.transform.localPosition = Vector3.Lerp(temp, weaponOrigin, 0.7f);
+        weapon.SetActive(true);
+        
     }
 }
 
