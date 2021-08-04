@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LavaDamage : MonoBehaviour
 {
-
+    public int DamagePerFrame;
     private PlayerController player;
     void Start()
     {
@@ -15,7 +15,7 @@ public class LavaDamage : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            player.Damage(1);
+            player.Damage(DamagePerFrame);
         }
     }
 }
