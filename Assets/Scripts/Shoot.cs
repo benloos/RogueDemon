@@ -67,8 +67,8 @@ public class Shoot : MonoBehaviour
         Gizmos.color = Color.magenta;
         if(Physics.Raycast(camera.transform.position,transform.right, out hit)){
             //Debug.Log(hit.transform.name);
-            Debug.DrawRay(camera.transform.position, transform.right, Color.magenta);
-            Gizmos.DrawSphere(hit.point, 0.1f);
+            //Debug.DrawRay(camera.transform.position, transform.right, Color.magenta);
+            //Gizmos.DrawSphere(hit.point, 0.1f);
         }
     }
 

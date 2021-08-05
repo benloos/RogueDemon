@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class FinishedFloor : MonoBehaviour
 {
+
+    public bool FinalLevel = false;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -19,6 +21,12 @@ public class FinishedFloor : MonoBehaviour
         Time.timeScale = 0.25f;
         LeanTween.alpha(blackImage.rectTransform, 1f, 0.5f).setEase(LeanTweenType.easeInOutCubic);
         yield return new WaitForSeconds(0.75f);
-        GameManager.current.LoadMenuScene();
+        if (FinalLevel)
+        {
+            GameManager.current.LoadMenuScene();
+        } else
+        {
+            GameManager.current.LoadNextScene();
+        }
     }
 }
