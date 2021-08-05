@@ -215,7 +215,7 @@ public class PlayerController : MonoBehaviour
         canDash = true;
     }
 
-    IEnumerator Shake(float duration, float magnitude)
+    public IEnumerator Shake(float duration, float magnitude)
     {
         Vector3 originalPos = camera.transform.localPosition;
 

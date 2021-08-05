@@ -9,7 +9,7 @@ public class BulletFlight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Destroy(this.gameObject, 3.0f);
     }
 
     void OnTriggerEnter(Collider collision){
@@ -22,8 +22,8 @@ public class BulletFlight : MonoBehaviour
             */
             Debug.Log("Hit Zombie");
             EnemyAI script = collision.gameObject.transform.GetComponent<EnemyAI>();
-            script.TakeDamage(50);
+            script.TakeDamage(100);
         }
-        Destroy(this.gameObject, 2.0f);
+        
     }
 }

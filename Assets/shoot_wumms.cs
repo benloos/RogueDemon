@@ -11,14 +11,20 @@ public class shoot_wumms : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float shootForce;
-    [SerializeField] private Vector3 upRecoil;
+    [SerializeField] private GameObject player;
+    private PlayerController playerController;
+    private Quaternion upRecoil = Quaternion.Euler(7f,-180f,90f);
+    private Quaternion originalRotation;
     private Vector3 originalPosition;
+    private Vector3 RecoilPosition;
     // Start is called before the first frame update
     void Start()
     {
         attackPoint.localPosition.Set(0.015f, 0, -0.788f);
-        originalPosition = transform.localEulerAngles;   
-        
+        originalRotation = transform.localRotation;
+        playerController = player.GetComponent<PlayerController>(); 
+        originalPosition = transform.localPosition;
+        RecoilPosition.Set(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - 0.04f);
     }
 
     // Update is called once per frame
@@ -29,48 +35,69 @@ public class shoot_wumms : MonoBehaviour
             MuzzleFlash_Left.Play();
             MuzzleFlash_Right.Play();
             shoot();
-            Recoil();
-            
-        } else if(Input.GetKeyUp(KeyCode.Mouse0)){
-            StopRecoil();
+            RecoilUp();
+        }else if(Input.GetKeyUp(KeyCode.Mouse0)){
+            RecoilDown();
         }
+
     }
 
-
+    //spaghettiiiiiiii Code
     private void shoot(){
-        Debug.Log(originalPosition);
         //hit position finden
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
 
         //check if ray hits something
         Vector3 targetPoint;
-        if (Physics.Raycast(ray, out hit))
+        Debug.DrawRay(cam.transform.position, new Vector3(0.5f,0.5f,0), Color.cyan , 5);
+        if (Physics.Raycast(ray, out hit)){
             targetPoint = hit.point;
-        else
+           
+        }else{
             targetPoint = ray.GetPoint(75); //Just a point far away from the player
+        }
 
-        //Debug.Log("Raycast hit: " + hit.collider.gameObject.name);
         //Calculate direction from attackPoint to targetPoint
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
-        //Debug.Log("AttackPosition: " + attackPoint.localPosition);
+        Debug.DrawRay(attackPoint.position, directionWithoutSpread, Color.blue);
         //Instantiate bullet/projectile
         GameObject currentBullet = Instantiate(projectile, attackPoint.position, Quaternion.identity); //store instantiated bullet in currentBullet
+        currentBullet.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
         //Rotate bullet to shoot direction
         currentBullet.transform.forward = directionWithoutSpread.normalized;
 
                 //Add forces to bullet
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * shootForce, ForceMode.Impulse);
-
-
+        //StartCoroutine(playerController.Shake(0.15f, 0.1f));
     }
 
-    private void Recoil(){
-        Debug.Log("Hellooo");
-        transform.localEulerAngles = Vector3.Lerp(transform.localEulerAngles, upRecoil, 0.5f);
+    private void RecoilUp(){
+        /*
+        while (transform.localRotation.eulerAngles.x != 7){
+            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, upRecoil, Time.deltaTime * 5);
+            Debug.Log(transform.localRotation);
+        }
+        */
+        originalPosition = transform.localPosition;
+        transform.localPosition = Vector3.Lerp(transform.localPosition, RecoilPosition, 0.5f);
     }
 
-    private void StopRecoil(){
-        transform.localEulerAngles = Vector3.Lerp(transform.localEulerAngles, originalPosition, 0.5f);
+    private void RecoilDown(){
+        /*
+        while (transform.localRotation.eulerAngles.x != 0){
+            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, originalRotation, Time.deltaTime * 5);
+        }
+        */
+        transform.localPosition = Vector3.Lerp(transform.localPosition, originalPosition, 0.5f);
+    }
+    private void OnDrawGizmos(){
+        RaycastHit hit;
+        Gizmos.color = Color.green;
+        if(Physics.Raycast(cam.transform.position, cam.transform.forward , out hit)){
+            //Debug.Log(hit.transform.name);
+            Debug.DrawRay(cam.transform.position, transform.right, Color.green);
+            Gizmos.DrawSphere(hit.point, 0.1f);
+        }
     }
 }
