@@ -17,6 +17,10 @@ public class MainMenuController : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        PlayerPrefs.SetInt("PlayerDMG", 10);
+        PlayerPrefs.SetInt("PlayerHP", 100);
+        PlayerPrefs.SetInt("PlayermaxHP", 100);
+        PlayerPrefs.SetInt("PlayerFirerate", 2);
     }
 
     IEnumerator LoadLevel()
