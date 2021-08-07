@@ -18,7 +18,8 @@ public class shoot_wumms : MonoBehaviour
     private Vector3 originalPosition;
     private Vector3 RecoilPosition;
     public bool AKTIVIEREN;
-    public int munition = 10;
+    public int ammo = 0;
+    float timer;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,24 +28,31 @@ public class shoot_wumms : MonoBehaviour
         playerController = player.GetComponent<PlayerController>(); 
         originalPosition = transform.localPosition;
         RecoilPosition.Set(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - 0.04f);
+        timer = 1.0f / (float)playerController.Firerate;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(munition < 0){
-            if(Input.GetKeyDown(KeyCode.Mouse0)){
-                MuzzleFlash_Front.Play();
-                MuzzleFlash_Left.Play();
-                MuzzleFlash_Right.Play();
-                shoot();
-                munition--;
-                RecoilUp();
-            }else if(Input.GetKeyUp(KeyCode.Mouse0)){
-                RecoilDown();
+        if(timer >= (1.0f / (float)playerController.Firerate)){
+            Debug.Log("times up");
+        }
+        if(ammo > 0){
+            if(timer >= (1.0f / (float)playerController.Firerate)*2){
+                if (Input.GetKeyDown(KeyCode.Mouse0)){
+                timer = 0;
+                    MuzzleFlash_Front.Play();
+                    MuzzleFlash_Left.Play();
+                    MuzzleFlash_Right.Play();
+                    shoot();
+                    ammo--;
+                    RecoilUp();
+                }else if(Input.GetKeyUp(KeyCode.Mouse0)){
+                    RecoilDown();
+                }
             }
         }
-        //TODO WENN SNIPER AUFGESAMMELT WURDE CALL add_ammo()
+        timer += Time.deltaTime;
     }
 
     //spaghettiiiiiiii Code
@@ -55,7 +63,7 @@ public class shoot_wumms : MonoBehaviour
 
         //check if ray hits something
         Vector3 targetPoint;
-        Debug.DrawRay(cam.transform.position, new Vector3(0.5f,0.5f,0), Color.cyan , 5);
+        //Debug.DrawRay(cam.transform.position, new Vector3(0.5f,0.5f,0), Color.cyan , 5);
         if (Physics.Raycast(ray, out hit)){
             targetPoint = hit.point;
            
@@ -65,7 +73,7 @@ public class shoot_wumms : MonoBehaviour
 
         //Calculate direction from attackPoint to targetPoint
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
-        Debug.DrawRay(attackPoint.position, directionWithoutSpread, Color.blue);
+        //Debug.DrawRay(attackPoint.position, directionWithoutSpread, Color.blue);
         //Instantiate bullet/projectile
         GameObject currentBullet = Instantiate(projectile, attackPoint.position, Quaternion.identity); //store instantiated bullet in currentBullet
         
@@ -74,26 +82,15 @@ public class shoot_wumms : MonoBehaviour
 
                 //Add forces to bullet
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * shootForce, ForceMode.Impulse);
-        //StartCoroutine(playerController.Shake(0.15f, 0.1f));
+        StartCoroutine(playerController.Shake(0.15f, 0.1f));
     }
 
     private void RecoilUp(){
-        /*
-        while (transform.localRotation.eulerAngles.x != 7){
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, upRecoil, Time.deltaTime * 5);
-            Debug.Log(transform.localRotation);
-        }
-        */
         originalPosition = transform.localPosition;
         transform.localPosition = Vector3.Lerp(transform.localPosition, RecoilPosition, 0.5f);
     }
 
     private void RecoilDown(){
-        /*
-        while (transform.localRotation.eulerAngles.x != 0){
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, originalRotation, Time.deltaTime * 5);
-        }
-        */
         transform.localPosition = Vector3.Lerp(transform.localPosition, originalPosition, 0.5f);
     }
     private void OnDrawGizmos(){
@@ -104,9 +101,10 @@ public class shoot_wumms : MonoBehaviour
             Debug.DrawRay(cam.transform.position, transform.right, Color.green);
             Gizmos.DrawSphere(hit.point, 0.1f);
         }
+    }   
+    public void add_ammo(){
+        Debug.Log("sniper_script triggered");
+        ammo += 10;
     }
-
-    private void add_ammo(){
-        munition += 10;
-    }
+    
 }

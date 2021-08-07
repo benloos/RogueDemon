@@ -19,10 +19,9 @@ public class sniper_ammo_UI : MonoBehaviour
     void Update()
     {
         if(sniper.activeSelf){
-            this.enabled = true;
-            text.text = sniper_script.munition.ToString();
+            text.text = sniper_script.ammo.ToString();
         } else {
-            this.enabled = false;
+            text.text = "";
         }
     }
 }

@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera camera;
     [SerializeField] private Image blackImage;
     [SerializeField] private Image DeathText;
+    private shoot_wumms sniper_script;
     private GameObject weapon;
     private Vector3 standard_weaponOrigin;
     private Vector3 special_weaponOrigin;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
         death_sound = GetComponent<AudioSource>();
         death_sound.clip = deathClip;
         SniperEnabled = false;
+        sniper_script = special_weapon.GetComponent<shoot_wumms>();
     }
 
     // Update is called once per frame
@@ -97,24 +99,25 @@ public class PlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
         
     
-        shoot_wumms sniper_script = special_weapon.GetComponent<shoot_wumms>();
-        Debug.Log(sniper_script.munition.ToString());
         
-        if(sniper_script.munition > 0){
-            Debug.Log("true?");
+        
+        
+        if(sniper_script.ammo > 0){
             SniperEnabled = true;
+        } else {
+            SniperEnabled = false;
         }
         /**
         WAFFEN WECHSEL
         */
         if((Input.mouseScrollDelta.y != 0.0) && SniperEnabled == true){
             change_weapon();
-            Debug.Log("check");
         }
         /**
         FORCED WECHSEL WEIL KEINE AMMO
         */
-        if(weapon.Equals(special_weapon) && sniper_script.munition == 0){
+        if(weapon.Equals(special_weapon) && sniper_script.ammo == 0){
+            SniperEnabled = false;
             change_weapon();
         }
     
