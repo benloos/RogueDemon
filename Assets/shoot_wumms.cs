@@ -17,6 +17,8 @@ public class shoot_wumms : MonoBehaviour
     private Quaternion originalRotation;
     private Vector3 originalPosition;
     private Vector3 RecoilPosition;
+    public bool AKTIVIEREN;
+    public int munition = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,16 +32,19 @@ public class shoot_wumms : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0)){
-            MuzzleFlash_Front.Play();
-            MuzzleFlash_Left.Play();
-            MuzzleFlash_Right.Play();
-            shoot();
-            RecoilUp();
-        }else if(Input.GetKeyUp(KeyCode.Mouse0)){
-            RecoilDown();
+        if(munition < 0){
+            if(Input.GetKeyDown(KeyCode.Mouse0)){
+                MuzzleFlash_Front.Play();
+                MuzzleFlash_Left.Play();
+                MuzzleFlash_Right.Play();
+                shoot();
+                munition--;
+                RecoilUp();
+            }else if(Input.GetKeyUp(KeyCode.Mouse0)){
+                RecoilDown();
+            }
         }
-
+        //TODO WENN SNIPER AUFGESAMMELT WURDE CALL add_ammo()
     }
 
     //spaghettiiiiiiii Code
@@ -63,7 +68,7 @@ public class shoot_wumms : MonoBehaviour
         Debug.DrawRay(attackPoint.position, directionWithoutSpread, Color.blue);
         //Instantiate bullet/projectile
         GameObject currentBullet = Instantiate(projectile, attackPoint.position, Quaternion.identity); //store instantiated bullet in currentBullet
-        currentBullet.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
+        
         //Rotate bullet to shoot direction
         currentBullet.transform.forward = directionWithoutSpread.normalized;
 
@@ -99,5 +104,9 @@ public class shoot_wumms : MonoBehaviour
             Debug.DrawRay(cam.transform.position, transform.right, Color.green);
             Gizmos.DrawSphere(hit.point, 0.1f);
         }
+    }
+
+    private void add_ammo(){
+        munition += 10;
     }
 }
