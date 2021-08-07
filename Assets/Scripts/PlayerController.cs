@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera camera;
     [SerializeField] private Image blackImage;
     [SerializeField] private Image DeathText;
+    private shoot_wumms sniper_script;
     private GameObject weapon;
     private Vector3 standard_weaponOrigin;
     private Vector3 special_weaponOrigin;
@@ -35,6 +36,8 @@ public class PlayerController : MonoBehaviour
     public bool isDashing;
     private bool canDash;
     public float dashCD;
+    private bool SniperEnabled;
+    private int sniper_ammo;
 
     public AudioClip deathClip;
 
@@ -57,6 +60,8 @@ public class PlayerController : MonoBehaviour
         playerCollider = GetComponent<CapsuleCollider>();
         death_sound = GetComponent<AudioSource>();
         death_sound.clip = deathClip;
+        SniperEnabled = false;
+        sniper_script = special_weapon.GetComponent<shoot_wumms>();
     }
 
     // Update is called once per frame
@@ -93,8 +98,26 @@ public class PlayerController : MonoBehaviour
         }
         controller.Move(velocity * Time.deltaTime);
         
-
-        if(Input.mouseScrollDelta.y != 0.0){
+    
+        
+        
+        
+        if(sniper_script.ammo > 0){
+            SniperEnabled = true;
+        } else {
+            SniperEnabled = false;
+        }
+        /**
+        WAFFEN WECHSEL
+        */
+        if((Input.mouseScrollDelta.y != 0.0) && SniperEnabled == true){
+            change_weapon();
+        }
+        /**
+        FORCED WECHSEL WEIL KEINE AMMO
+        */
+        if(weapon.Equals(special_weapon) && sniper_script.ammo == 0){
+            SniperEnabled = false;
             change_weapon();
         }
     
@@ -237,9 +260,9 @@ public class PlayerController : MonoBehaviour
 
     private void change_weapon(){
         //put away location
-        Vector3 temp = new Vector3(-0.3f,0.3f,0);
-        temp = weaponOrigin-temp;
-        weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, temp, 0.7f);
+        Vector3 put_away = new Vector3(-0.3f,0.3f,0);
+        put_away = weaponOrigin-put_away;
+        weapon.transform.localPosition = Vector3.Lerp(weapon.transform.localPosition, put_away, 0.7f);
         weapon.SetActive(false);
         if(weapon.Equals(standard_weapon)){
             weapon = special_weapon;
@@ -248,9 +271,10 @@ public class PlayerController : MonoBehaviour
             weapon = standard_weapon;
             weaponOrigin = standard_weaponOrigin;
         }
-        weapon.transform.localPosition = temp;
-        weapon.transform.localPosition = Vector3.Lerp(temp, weaponOrigin, 0.7f);
+        weapon.transform.localPosition = put_away;
         weapon.SetActive(true);
+        weapon.transform.localPosition = Vector3.Lerp(put_away, weaponOrigin, 0.7f);
+        
         
     }
 }

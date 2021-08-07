@@ -150,6 +150,11 @@ public class GameManager : MonoBehaviour
         resetPlayerPos();
         level_completion = GetComponent<AudioSource>();
         level_completion.clip = roomClear;
+        PlayerController pc = player.GetComponent<PlayerController>();
+        pc.DMG = PlayerPrefs.GetInt("PlayerDMG");
+        pc.HP = PlayerPrefs.GetInt("PlayerHP");
+        pc.maxHP = PlayerPrefs.GetInt("PlayermaxHP");
+        pc.Firerate = PlayerPrefs.GetInt("PlayerFirerate");
     }
 
     public void resetPlayerPos()
@@ -174,6 +179,11 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextScene()
     {
+        PlayerController pc = player.GetComponent<PlayerController>();
+        PlayerPrefs.SetInt("PlayerDMG", pc.DMG);
+        PlayerPrefs.SetInt("PlayerHP", pc.HP);
+        PlayerPrefs.SetInt("PlayermaxHP", pc.maxHP);
+        PlayerPrefs.SetInt("PlayerFirerate", pc.Firerate);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
