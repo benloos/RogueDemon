@@ -14,7 +14,7 @@ public class BulletFlight : MonoBehaviour
 
     void OnTriggerEnter(Collider collision){
         Debug.Log("Bullet hit: " + collision.gameObject.name);
-        if(collision.gameObject.transform.name.Contains("Zombie")){
+        if((collision.gameObject.transform.tag == "ZombieP") || (collision.gameObject.transform.tag == "Imp")){
             /**
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
