@@ -143,6 +143,11 @@ public class PlayerController : MonoBehaviour
         
     }
 
+
+    private void OnParticleCollision(GameObject other)
+    {
+        Damage(20);
+    }
     // check for floor or other object beneath the player
     private bool IsGrounded(){
         Collider[] groundhit = Physics.OverlapSphere(groundCheck.transform.position, 0.3f); //Physics.Raycast(groundCheck.bounds.center, Vector3.down, groundCheck.bounds.extents.y + 0.1f);

@@ -19,7 +19,9 @@ public class BossAI : MonoBehaviour
 
     //Attack
     [SerializeField] private int attackDamage = 20;
+    [SerializeField] private int attackDamageHeavy = 20;
     [SerializeField] private float timeBetweenAttacks;
+    [SerializeField] private float timeBetweenAttacksHeavy;
     private bool hasAttacked;
     [SerializeField] public Transform attackPoint;
     [SerializeField] private AudioSource attScream;
@@ -30,6 +32,7 @@ public class BossAI : MonoBehaviour
     public int health = 100;
     [SerializeField] private float deathTime;
     [SerializeField] private float staggerTime;
+    [SerializeField] private float staggerDmg;
     [SerializeField] private AudioSource deathSound;
 
     //States
@@ -49,6 +52,8 @@ public class BossAI : MonoBehaviour
 
     void Update()
     {
+        
+        if (health <= 0) isActive = false;
         if (isActive == true)
         {
             anim.SetBool("isActive", true);
@@ -89,30 +94,68 @@ public class BossAI : MonoBehaviour
         }
     }
 
-    void AttackPlayer()
+    void EnrageAttack()
     {
-        anim.SetBool("Attacking", true);
-        attScream.Play();
+        anim.SetBool("Scream", true);
         agent.SetDestination(transform.position);
         transform.LookAt(player);
-        transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
-        if (!hasAttacked)
-        {
-            //AttackCode
-            Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, whatisPlayer);
-            //DmgPlayer
-            if (hitEnemies.Length > 0)
-            {
-                if (pc.HP > 0)
-                {
-                    attSound.Play();
-                    pc.Damage(attackDamage);
-                }
-            }
 
-            hasAttacked = true;
-            anim.SetBool("HasAttacked", true);
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+    }
+
+    void AttackPlayer()
+    {
+        float ran = Random.value;
+        if (ran < 0.7)
+        {
+            anim.SetBool("Attacking", true);
+            attScream.Play();
+            agent.SetDestination(transform.position);
+            transform.LookAt(player);
+            transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
+            if (!hasAttacked)
+            {
+                //AttackCode
+                Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, whatisPlayer);
+                //DmgPlayer
+                if (hitEnemies.Length > 0)
+                {
+                    if (pc.HP > 0)
+                    {
+                        attSound.Play();
+                        pc.Damage(attackDamage);
+                    }
+                }
+
+                hasAttacked = true;
+                anim.SetBool("HasAttacked", true);
+                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            }
+        }
+        else
+        {
+            anim.SetBool("AttackHeavy", true);
+            attScream.Play();
+            agent.SetDestination(transform.position);
+            transform.LookAt(player);
+            transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
+            if (!hasAttacked)
+            {
+                //AttackCode
+                Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, whatisPlayer);
+                //DmgPlayer
+                if (hitEnemies.Length > 0)
+                {
+                    if (pc.HP > 0)
+                    {
+                        attSound.Play();
+                        pc.Damage(attackDamageHeavy);
+                    }
+                }
+
+                hasAttacked = true;
+                anim.SetBool("HasAttacked", true);
+                Invoke(nameof(ResetAttack), timeBetweenAttacksHeavy);
+            }
         }
     }
 
@@ -143,7 +186,7 @@ public class BossAI : MonoBehaviour
             Destroy(GetComponent<CapsuleCollider>());
             //Invoke(nameof(destroyEnemy), deathTime);
         }
-        else
+        else if(dmg>staggerDmg)
         {
             anim.SetBool("GotHit", true);
             isActive = false;

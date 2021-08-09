@@ -55,6 +55,8 @@ public class EnemyAIRanged : MonoBehaviour
 
     void Update()
     {
+        anim.SetFloat("HP", health);
+        if (health <= 0) isActive = false;
         if (isActive == true)
         {
             anim.SetBool("isActive", true);
