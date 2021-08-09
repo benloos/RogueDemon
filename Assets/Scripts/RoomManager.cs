@@ -44,6 +44,7 @@ public class RoomManager : MonoBehaviour
             if (other.CompareTag("Player"))
             {
                 isStarted = true;
+                GetComponent<BoxCollider>().enabled = false;
                 /*if (lights != null)
                 {
                     foreach (var light in lights)

@@ -43,7 +43,7 @@ public class Shoot : MonoBehaviour
             if (Physics.Raycast(camera.transform.position, transform.right, out hit))
             {
                 //Debug.Log(hit.transform.name);
-                if ((hit.transform.tag == "ZombieP") || hit.transform.tag == "Imp")
+                if ((hit.transform.tag == "ZombieP") || (hit.transform.tag == "Imp") || (hit.transform.tag == "Boss"))
                 {
                     EnemyAI script = hit.transform.GetComponent<EnemyAI>();
                     script.TakeDamage(pc.DMG);

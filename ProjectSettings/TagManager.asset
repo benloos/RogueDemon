@@ -9,6 +9,8 @@ TagManager:
   - DoorNegX
   - DoorNegZ
   - ZombieP
+  - Imp
+  - Boss
   layers:
   - Default
   - TransparentFX
