@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-public class EnemyAI : MonoBehaviour
+public class BossAI : MonoBehaviour
 {
     public NavMeshAgent agent;
     public Transform player;
@@ -28,7 +27,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private AudioSource damagesound;
 
     //HP
-    public int health=100;
+    public int health = 100;
     [SerializeField] private float deathTime;
     [SerializeField] private float staggerTime;
     [SerializeField] private AudioSource deathSound;
@@ -37,7 +36,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float sightRange, attackRange;
     private bool playerInRange, playerInSight;
     public bool isActive;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +49,6 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (health <= 0)  isActive = false; 
         if (isActive == true)
         {
             anim.SetBool("isActive", true);
@@ -98,12 +96,12 @@ public class EnemyAI : MonoBehaviour
         agent.SetDestination(transform.position);
         transform.LookAt(player);
         transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
-        if(!hasAttacked)
+        if (!hasAttacked)
         {
             //AttackCode
-            Collider[] hitEnemies=Physics.OverlapSphere(attackPoint.position, attackRange, whatisPlayer);
+            Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, whatisPlayer);
             //DmgPlayer
-            if(hitEnemies.Length>0)
+            if (hitEnemies.Length > 0)
             {
                 if (pc.HP > 0)
                 {
@@ -129,11 +127,12 @@ public class EnemyAI : MonoBehaviour
         health = health - dmg;
         anim.SetFloat("HP", health);
         agent.SetDestination(transform.position);
-        
-        if(damagesound.isPlaying == false){
+
+        if (damagesound.isPlaying == false)
+        {
             damagesound.Play();
         }
-            
+
 
         if (health <= 0)
         {
