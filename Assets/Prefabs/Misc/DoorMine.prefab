@@ -1324,6 +1324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e7220aa9f269c41b7d2b51dfde4699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMineDoor: 1
+  doorBlocker: {fileID: 5001799953375220376, guid: 74c0d686b09c86e40a4424ce4d2d7339, type: 3}
 --- !u!1 &7384006838468005488
 GameObject:
   m_ObjectHideFlags: 0

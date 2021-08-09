@@ -85,6 +85,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void blockDoors(int roomID)
+    {
+        Coords roomCoords = findIndexOfRoom(roomID);
+
+        if (roomCoords.X + 1 > seeds[seed].GetLength(0)-1)
+        {
+            rooms[roomID].GetComponent<RoomManager>().DoorPositiveX.GetComponent<DoorOpener>().Block();
+        } else if (seeds[seed][roomCoords.X + 1, roomCoords.Y] < 0)
+        {
+            rooms[roomID].GetComponent<RoomManager>().DoorPositiveX.GetComponent<DoorOpener>().Block();
+        }
+        if (roomCoords.X - 1 < 0)
+        {
+            rooms[roomID].GetComponent<RoomManager>().DoorNegativeX.GetComponent<DoorOpener>().Block();
+        } else if (seeds[seed][roomCoords.X - 1, roomCoords.Y] < 0)
+        {
+            rooms[roomID].GetComponent<RoomManager>().DoorNegativeX.GetComponent<DoorOpener>().Block();
+        }
+        if (roomCoords.Y + 1 > seeds[seed].GetLength(1)-1)
+        {
+            rooms[roomID].GetComponent<RoomManager>().DoorPositiveZ.GetComponent<DoorOpener>().Block();
+        }
+        else if (seeds[seed][roomCoords.X, roomCoords.Y + 1] < 0)
+        {
+            rooms[roomID].GetComponent<RoomManager>().DoorPositiveZ.GetComponent<DoorOpener>().Block();
+        }
+        if (roomCoords.Y - 1 < 0)
+        {
+            rooms[roomID].GetComponent<RoomManager>().DoorNegativeZ.GetComponent<DoorOpener>().Block();
+        }
+        else if (seeds[seed][roomCoords.X, roomCoords.Y - 1] < 0)
+        {
+            rooms[roomID].GetComponent<RoomManager>().DoorNegativeZ.GetComponent<DoorOpener>().Block();
+        }
+    }
+
     private void Awake()
     {
         current = this;
@@ -140,6 +176,7 @@ public class GameManager : MonoBehaviour
                 {
                     rooms[seeds[seed][i, j]].GetComponent<RoomManager>().setID(seeds[seed][i, j]);
                     rooms[seeds[seed][i, j]].transform.position = new Vector3(i * roomLength, 0, j * roomWidth);
+                    blockDoors(seeds[seed][i, j]);
                 }
             }
         }

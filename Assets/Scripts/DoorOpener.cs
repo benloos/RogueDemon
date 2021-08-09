@@ -10,6 +10,9 @@ public class DoorOpener : MonoBehaviour
 
     private bool isOpen = false;
 
+    public bool isMineDoor = false;
+    public GameObject doorBlocker;
+
     private void Awake()
     {
         initialPosition = transform.position.y;
@@ -32,6 +35,14 @@ public class DoorOpener : MonoBehaviour
             isOpen = false;
             LeanTween.cancel(gameObject);
             LeanTween.moveY(gameObject, initialPosition, tweenTime/5).setEase(LeanTweenType.easeOutBounce);
+        }
+    }
+
+    public void Block()
+    {
+        if (isMineDoor)
+        {
+            Instantiate(doorBlocker, transform.position, transform.rotation * Quaternion.Euler(0, 90f, 0));
         }
     }
 }
