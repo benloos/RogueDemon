@@ -13,18 +13,20 @@ public class BulletFlight : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider collision){
-        Debug.Log("Bullet hit: " + collision.gameObject.name);
-        if((collision.gameObject.transform.tag == "ZombieP") || (collision.gameObject.transform.tag == "Imp") || (collision.gameObject.transform.tag == "Boss"))
-        {
-            /**
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
-            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-            transform.localScale += new Vector3(1,1,1);
-            */
-            Debug.Log("Hit Zombie");
-            EnemyAI script = collision.gameObject.transform.GetComponent<EnemyAI>();
-            script.TakeDamage(100);
+        if (collision.gameObject.transform.tag == "ZombieP")
+            {
+                EnemyAI script = collision.gameObject.transform.GetComponent<EnemyAI>();
+                script.TakeDamage(100);
+            }
+            else if (collision.gameObject.transform.tag == "Imp")
+            {
+                EnemyAIRanged script = collision.gameObject.transform.GetComponent<EnemyAIRanged>();
+                script.TakeDamage(100);
+            }
+            else if (collision.gameObject.transform.tag == "Boss")
+            {
+                BossAI script = collision.gameObject.transform.GetComponent<BossAI>();
+                script.TakeDamage(200);
+            }
         }
-        
-    }
 }

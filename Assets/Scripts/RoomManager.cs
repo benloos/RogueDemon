@@ -74,9 +74,26 @@ public class RoomManager : MonoBehaviour
             {
                 foreach (Transform child in Zombies.transform)
                 {
-                    if (child.GetComponent<EnemyAI>().health > 0)
+                    if (child.tag == "ZombieP")
                     {
-                        allZombiesDead = false;
+                        if (child.GetComponent<EnemyAI>().health > 0)
+                        {
+                            allZombiesDead = false;
+                        }
+                    }
+                    else if (child.tag == "Imp")
+                    {
+                        if (child.GetComponent<EnemyAIRanged>().health > 0)
+                        {
+                            allZombiesDead = false;
+                        }
+                    }
+                    else if (child.tag == "Boss")
+                    {
+                        if (child.GetComponent<BossAI>().health > 0)
+                        {
+                            allZombiesDead = false;
+                        }
                     }
                 }
             }

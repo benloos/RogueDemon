@@ -45,8 +45,19 @@ public class Shoot : MonoBehaviour
                 //Debug.Log(hit.transform.name);
                 if ((hit.transform.tag == "ZombieP") || (hit.transform.tag == "Imp") || (hit.transform.tag == "Boss"))
                 {
-                    EnemyAI script = hit.transform.GetComponent<EnemyAI>();
-                    script.TakeDamage(pc.DMG);
+                    if (hit.transform.tag == "ZombieP")
+                    {
+                        EnemyAI script = hit.transform.GetComponent<EnemyAI>();
+                        script.TakeDamage(pc.DMG);
+                    } else if (hit.transform.tag == "Imp")
+                    {
+                        EnemyAIRanged script = hit.transform.GetComponent<EnemyAIRanged>();
+                        script.TakeDamage(pc.DMG);
+                    } else if (hit.transform.tag == "Boss")
+                    {
+                        BossAI script = hit.transform.GetComponent<BossAI>();
+                        script.TakeDamage(pc.DMG);
+                    }
 
                     particleHit_brown.transform.position = hit.point;
                     particleHit_brown.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
