@@ -12,6 +12,7 @@ public class shoot_wumms : MonoBehaviour
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float shootForce;
     [SerializeField] private GameObject player;
+    private AudioSource audio;
     private PlayerController playerController;
     private Quaternion upRecoil = Quaternion.Euler(7f,-180f,90f);
     private Quaternion originalRotation;
@@ -29,6 +30,7 @@ public class shoot_wumms : MonoBehaviour
         originalPosition = transform.localPosition;
         RecoilPosition.Set(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - 0.04f);
         timer = 1.0f / (float)playerController.Firerate;
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -82,6 +84,7 @@ public class shoot_wumms : MonoBehaviour
 
                 //Add forces to bullet
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * shootForce, ForceMode.Impulse);
+        audio.Play();
         StartCoroutine(playerController.Shake(0.15f, 0.1f));
     }
 
