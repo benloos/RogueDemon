@@ -16,17 +16,17 @@ public class BulletFlight : MonoBehaviour
         if (collision.gameObject.transform.tag == "ZombieP")
             {
                 EnemyAI script = collision.gameObject.transform.GetComponent<EnemyAI>();
-                script.TakeDamage(100);
+                script.TakeDamage(450);
             }
             else if (collision.gameObject.transform.tag == "Imp")
             {
                 EnemyAIRanged script = collision.gameObject.transform.GetComponent<EnemyAIRanged>();
-                script.TakeDamage(100);
+                script.TakeDamage(450);
             }
             else if (collision.gameObject.transform.tag == "Boss")
             {
                 BossAI script = collision.gameObject.transform.GetComponent<BossAI>();
-                script.TakeDamage(200);
+                script.TakeDamage(450);
             }
         }
 }
