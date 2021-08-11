@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     private int sniper_ammo;
 
     public AudioClip deathClip;
+    public AudioClip weapon_swap_clip;
 
     // Player Stats
     public int maxHP = 100;
@@ -188,6 +189,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator DeathSequence()
     {
         Time.timeScale = 0.25f;
+        death_sound.clip = deathClip;
         death_sound.Play();
         LeanTween.alpha(blackImage.rectTransform, 1f, 0.5f).setEase(LeanTweenType.easeInOutCubic);
         LeanTween.alpha(DeathText.rectTransform, 1f, 1f).setEase(LeanTweenType.easeInCubic);
@@ -278,6 +280,8 @@ public class PlayerController : MonoBehaviour
         }
         weapon.transform.localPosition = put_away;
         weapon.SetActive(true);
+        death_sound.clip = weapon_swap_clip;
+        death_sound.Play();
         weapon.transform.localPosition = Vector3.Lerp(put_away, weaponOrigin, 0.7f);
         
         
