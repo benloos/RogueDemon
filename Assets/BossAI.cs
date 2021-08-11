@@ -23,9 +23,13 @@ public class BossAI : MonoBehaviour
     [SerializeField] private float timeBetweenAttacks;
     [SerializeField] private float timeBetweenAttacksHeavy;
     private bool hasAttacked;
+    private bool canCast = true;
     [SerializeField] public Transform attackPoint;
-    [SerializeField] private AudioSource attScream;
-    [SerializeField] private AudioSource attSound;
+    [SerializeField] private AudioSource lightAttScream;
+    [SerializeField] private AudioSource lightAttSound;
+    [SerializeField] private AudioSource heavyAttScream;
+    [SerializeField] private AudioSource heavyAttSound;
+    [SerializeField] private AudioSource screamSound;
     [SerializeField] private AudioSource damagesound;
 
     //HP
@@ -56,7 +60,7 @@ public class BossAI : MonoBehaviour
         if (health <= 0) isActive = false;
         if (isActive == true)
         {
-            anim.SetBool("isActive", true);
+            anim.SetBool("IsActive", true);
             //checkRanges
             playerInSight = Physics.CheckSphere(transform.position, sightRange, whatisPlayer);
             playerInRange = Physics.CheckSphere(transform.position, attackRange, whatisPlayer);
@@ -75,6 +79,9 @@ public class BossAI : MonoBehaviour
                     anim.SetBool("PlayerInRange", true);
                     AttackPlayer();
                 }
+            }else if (canCast && health<=1000)
+            {
+                EnrageAttack();
             }
         }
     }
@@ -96,10 +103,13 @@ public class BossAI : MonoBehaviour
 
     void EnrageAttack()
     {
+        canCast = false;
         anim.SetBool("Scream", true);
         agent.SetDestination(transform.position);
         transform.LookAt(player);
-
+        screamSound.Play();
+        attackDamage = attackDamage*2;
+        attackDamageHeavy = attackDamageHeavy * 2;
     }
 
     void AttackPlayer()
@@ -108,7 +118,7 @@ public class BossAI : MonoBehaviour
         if (ran < 0.7)
         {
             anim.SetBool("Attacking", true);
-            attScream.Play();
+            lightAttScream.Play();
             agent.SetDestination(transform.position);
             transform.LookAt(player);
             transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
@@ -121,7 +131,7 @@ public class BossAI : MonoBehaviour
                 {
                     if (pc.HP > 0)
                     {
-                        attSound.Play();
+                        lightAttSound.Play();
                         pc.Damage(attackDamage);
                     }
                 }
@@ -134,7 +144,7 @@ public class BossAI : MonoBehaviour
         else
         {
             anim.SetBool("AttackHeavy", true);
-            attScream.Play();
+            heavyAttScream.Play();
             agent.SetDestination(transform.position);
             transform.LookAt(player);
             transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
@@ -147,7 +157,7 @@ public class BossAI : MonoBehaviour
                 {
                     if (pc.HP > 0)
                     {
-                        attSound.Play();
+                        heavyAttSound.Play();
                         pc.Damage(attackDamageHeavy);
                     }
                 }
@@ -181,7 +191,7 @@ public class BossAI : MonoBehaviour
         {
             //DeathCode
             isActive = false;
-            anim.SetBool("isActive", false);
+            anim.SetBool("IsActive", false);
             deathSound.Play();
             Destroy(GetComponent<CapsuleCollider>());
             //Invoke(nameof(destroyEnemy), deathTime);

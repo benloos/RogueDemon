@@ -131,6 +131,7 @@ public class EnemyAI : MonoBehaviour
         agent.SetDestination(transform.position);
         
         if(damagesound.isPlaying == false){
+            damagesound.pitch = (Random.Range(0.6f, .9f));
             damagesound.Play();
         }
             

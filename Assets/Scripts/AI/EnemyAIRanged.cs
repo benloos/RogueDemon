@@ -26,7 +26,7 @@ public class EnemyAIRanged : MonoBehaviour
     //[SerializeField] public Transform attackPoint;
     //[SerializeField] private AudioSource attScream;
     //[SerializeField] private AudioSource attSound;
-    //[SerializeField] private AudioSource damagesound;
+    [SerializeField] private AudioSource damagesound;
     [SerializeField] private GameObject CastObject;
     [SerializeField] private ParticleSystem FireboltParticle;
     [SerializeField] private AudioSource FireboltSound;
@@ -36,7 +36,7 @@ public class EnemyAIRanged : MonoBehaviour
     public int health = 100;
     [SerializeField] private float deathTime;
     [SerializeField] private float staggerTime;
-    //[SerializeField] private AudioSource deathSound;
+    [SerializeField] private AudioSource deathSound;
 
     //States
     [SerializeField] private float sightRange, attackRange;
@@ -106,7 +106,7 @@ public class EnemyAIRanged : MonoBehaviour
         if (!hasAttacked)
         {
             FireLight.enabled = true;
-            Invoke(nameof(cast), 3.267f);
+            Invoke(nameof(cast), 1.5f);
             hasAttacked = true;
             Invoke(nameof(ResetAttack), 3.267f);
         }
@@ -133,10 +133,11 @@ public class EnemyAIRanged : MonoBehaviour
         anim.SetFloat("HP", health);
         agent.SetDestination(transform.position);
 
-        /*if (damagesound.isPlaying == false)
+        if (damagesound.isPlaying == false)
         {
+            damagesound.pitch = (Random.Range(0.6f, .9f));
             damagesound.Play();
-        }*/
+        }
 
 
         if (health <= 0)
@@ -144,7 +145,7 @@ public class EnemyAIRanged : MonoBehaviour
             //DeathCode
             isActive = false;
             anim.SetBool("isActive", false);
-            //deathSound.Play();
+            deathSound.Play();
             Destroy(GetComponent<CapsuleCollider>());
             //Invoke(nameof(destroyEnemy), deathTime);
         }

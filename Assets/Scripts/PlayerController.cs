@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        Damage(20);
+        Damage(10);
     }
     // check for floor or other object beneath the player
     private bool IsGrounded(){
