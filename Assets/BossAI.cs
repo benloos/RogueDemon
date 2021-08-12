@@ -131,20 +131,8 @@ public class BossAI : MonoBehaviour
             transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
             if (!hasAttacked)
             {
-                //AttackCode
-                Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, whatisPlayer);
-                //DmgPlayer
-                if (hitEnemies.Length > 0)
-                {
-                    if (pc.HP > 0)
-                    {
-                        lightAttSound.Play();
-                        pc.Damage(attackDamage);
-                    }
-                }
-
+                Invoke(nameof(hitAttackLight), 1.05f);
                 hasAttacked = true;
-                anim.SetBool("HasAttacked", true);
                 Invoke(nameof(ResetAttack), timeBetweenAttacks);
             }
         }
@@ -157,20 +145,39 @@ public class BossAI : MonoBehaviour
             transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
             if (!hasAttacked)
             {
-                //AttackCode
-                Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, whatisPlayer);
-                //DmgPlayer
-                if (hitEnemies.Length > 0)
-                {
-                    if (pc.HP > 0)
-                    {
-                        heavyAttSound.Play();
-                        pc.Damage(attackDamageHeavy);
-                    }
-                }
-
+                Invoke(nameof(hitAttackHeavy), 1.1f);
                 hasAttacked = true;
                 Invoke(nameof(ResetAttack), timeBetweenAttacksHeavy);
+            }
+        }
+    }
+
+    void hitAttackLight()
+    {
+        //AttackCode
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, whatisPlayer);
+        //DmgPlayer
+        if (hitEnemies.Length > 0)
+        {
+            if (pc.HP > 0)
+            {
+                lightAttSound.Play();
+                pc.Damage(attackDamage);
+            }
+        }
+    }
+
+    void hitAttackHeavy()
+    {
+        //AttackCode
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, whatisPlayer);
+        //DmgPlayer
+        if (hitEnemies.Length > 0)
+        {
+            if (pc.HP > 0)
+            {
+                heavyAttSound.Play();
+                pc.Damage(attackDamageHeavy);
             }
         }
     }
