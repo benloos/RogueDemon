@@ -50,7 +50,8 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (health <= 0)  isActive = false; 
+        if (health <= 0)  isActive = false;
+        anim.SetFloat("HP", health);
         if (isActive == true)
         {
             anim.SetBool("isActive", true);
@@ -141,6 +142,7 @@ public class EnemyAI : MonoBehaviour
             //DeathCode
             isActive = false;
             anim.SetBool("isActive", false);
+            deathSound.pitch = (Random.Range(0.6f, .9f));
             deathSound.Play();
             Destroy(GetComponent<CapsuleCollider>());
             //Invoke(nameof(destroyEnemy), deathTime);

@@ -30,7 +30,6 @@ public class EnemyAIRanged : MonoBehaviour
     [SerializeField] private GameObject CastObject;
     [SerializeField] private ParticleSystem FireboltParticle;
     [SerializeField] private AudioSource FireboltSound;
-    [SerializeField] private Light FireLight;
 
     //HP
     public int health = 100;
@@ -68,7 +67,7 @@ public class EnemyAIRanged : MonoBehaviour
             {
                 anim.SetBool("Attacking", false);
                 anim.SetBool("PlayerInRange", false);
-                ChasePlayer();
+                //ChasePlayer();
             }
             if (playerInRange)
             {
@@ -102,13 +101,12 @@ public class EnemyAIRanged : MonoBehaviour
         anim.SetBool("Attacking", true);
         //attScream.Play();
         agent.SetDestination(transform.position);
-        transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
         if (!hasAttacked)
         {
-            FireLight.enabled = true;
+            transform.LookAt(player);
             Invoke(nameof(cast), 1.5f);
             hasAttacked = true;
-            Invoke(nameof(ResetAttack), 3.267f);
+            Invoke(nameof(ResetAttack), 2.1f);
         }
     }
     void cast()
@@ -117,7 +115,6 @@ public class EnemyAIRanged : MonoBehaviour
         CastObject.transform.LookAt(player);
         FireboltParticle.Play();
         FireboltSound.Play();
-        FireLight.enabled = false;
         anim.SetBool("HasAttacked", true);
     }
 
@@ -145,6 +142,7 @@ public class EnemyAIRanged : MonoBehaviour
             //DeathCode
             isActive = false;
             anim.SetBool("isActive", false);
+            deathSound.pitch = (Random.Range(0.6f, .9f));
             deathSound.Play();
             Destroy(GetComponent<CapsuleCollider>());
             //Invoke(nameof(destroyEnemy), deathTime);

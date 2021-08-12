@@ -556,7 +556,7 @@ PrefabInstance:
       objectReference: {fileID: 1966005497}
     - target: {fileID: 8546750925045411859, guid: 06cb2b131fe009c47a523671a8fa9ed8, type: 3}
       propertyPath: staggerTime
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8546750925045411859, guid: 06cb2b131fe009c47a523671a8fa9ed8, type: 3}
       propertyPath: attackDamage

@@ -51,12 +51,12 @@ public class BossAI : MonoBehaviour
         player = GameManager.current.player.transform;
         pc = GameManager.current.player.GetComponent<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
-        anim.SetFloat("HP", health);
+        anim.SetInteger("HP", health);
     }
 
     void Update()
     {
-        
+        anim.SetInteger("HP", health);
         if (health <= 0) isActive = false;
         if (isActive == true)
         {
@@ -67,9 +67,15 @@ public class BossAI : MonoBehaviour
 
             if (!playerInRange)
             {
-                anim.SetBool("Attacking", false);
                 anim.SetBool("PlayerInRange", false);
-                ChasePlayer();
+                if (!hasAttacked)
+                    ChasePlayer();
+                else
+                {
+                    agent.SetDestination(transform.position);
+                    transform.LookAt(player);
+                    transform.eulerAngles = new Vector3(0.0f, transform.eulerAngles.y, 0.0f);
+                }
             }
             if (playerInRange)
             {
@@ -110,6 +116,7 @@ public class BossAI : MonoBehaviour
         screamSound.Play();
         attackDamage = attackDamage*2;
         attackDamageHeavy = attackDamageHeavy * 2;
+        anim.SetBool("Scream", false);
     }
 
     void AttackPlayer()
@@ -163,7 +170,6 @@ public class BossAI : MonoBehaviour
                 }
 
                 hasAttacked = true;
-                anim.SetBool("HasAttacked", true);
                 Invoke(nameof(ResetAttack), timeBetweenAttacksHeavy);
             }
         }
@@ -173,12 +179,14 @@ public class BossAI : MonoBehaviour
     {
         hasAttacked = false;
         anim.SetBool("HasAttacked", false);
+        anim.SetBool("Attacking", false);
+        anim.SetBool("AttackHeavy", false);
     }
 
     public void TakeDamage(int dmg)
     {
         health = health - dmg;
-        anim.SetFloat("HP", health);
+        anim.SetInteger("HP", health);
         agent.SetDestination(transform.position);
 
         if (damagesound.isPlaying == false)

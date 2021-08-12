@@ -2650,8 +2650,8 @@ MonoBehaviour:
   anim: {fileID: 3601100429107694964}
   attackDamage: 40
   attackDamageHeavy: 60
-  timeBetweenAttacks: 1
-  timeBetweenAttacksHeavy: 2
+  timeBetweenAttacks: 2
+  timeBetweenAttacksHeavy: 4
   attackPoint: {fileID: 2460774592863261651}
   lightAttScream: {fileID: 3737518626933657564}
   lightAttSound: {fileID: 2130918024414700838}
@@ -2665,7 +2665,7 @@ MonoBehaviour:
   staggerDmg: 0
   deathSound: {fileID: 7923648180952413672}
   sightRange: 0
-  attackRange: 2
+  attackRange: 5
   isActive: 0
 --- !u!136 &6788718727197694011
 CapsuleCollider:
