@@ -67,9 +67,8 @@ public class EnemyAIRanged : MonoBehaviour
             {
                 anim.SetBool("Attacking", false);
                 anim.SetBool("PlayerInRange", false);
-                //ChasePlayer();
-            }
-            if (playerInRange)
+                ChasePlayer();
+            }else
             {
 
                 if (pc.HP > 0)
@@ -83,15 +82,18 @@ public class EnemyAIRanged : MonoBehaviour
 
     void ChasePlayer()
     {
-        if (player.position != oldPos)
+        if (!playerInRange)
         {
-            if (agent.SetDestination(player.position))
+            if (player.position != oldPos)
             {
-                oldPos = player.position;
-            }
-            else
-            {
-                agent.SetDestination(oldPos);
+                if (agent.SetDestination(player.position))
+                {
+                    oldPos = player.position;
+                }
+                else
+                {
+                    agent.SetDestination(oldPos);
+                }
             }
         }
     }
