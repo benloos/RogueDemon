@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         current = this;
-
+        Time.timeScale = 1f;
         seeds = new List<int[,]>(); // Start Room on the right, Bossroom on the left
         seeds.Add(new int[,] {
             {             -1, -1, -1, -1, -1 },
