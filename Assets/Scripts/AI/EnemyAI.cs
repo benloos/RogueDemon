@@ -31,6 +31,7 @@ public class EnemyAI : MonoBehaviour
     public int health=100;
     [SerializeField] private float deathTime;
     [SerializeField] private float staggerTime;
+    [SerializeField] private bool isBoss = false;
     [SerializeField] private AudioSource deathSound;
 
     //States
@@ -149,9 +150,12 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            anim.SetBool("GotHit", true);
-            isActive = false;
-            Invoke(nameof(stagger), staggerTime);
+            if (!isBoss)
+            {
+                anim.SetBool("GotHit", true);
+                isActive = false;
+                Invoke(nameof(stagger), staggerTime);
+            }
         }
     }
 
