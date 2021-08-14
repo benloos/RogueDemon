@@ -21,6 +21,8 @@ public class RoomManager : MonoBehaviour
 
     public GameObject[] lights;
 
+    public AudioSource bossMusic;
+
     private void Start()
     {
         if (Zombies != null)
@@ -45,6 +47,10 @@ public class RoomManager : MonoBehaviour
             {
                 isStarted = true;
                 GetComponent<BoxCollider>().enabled = false;
+                if (bossRoom)
+                {
+                    bossMusic.Play();
+                }
                 /*if (lights != null)
                 {
                     foreach (var light in lights)
@@ -120,6 +126,7 @@ public class RoomManager : MonoBehaviour
         }
         if (bossRoom)
         {
+            bossMusic.Stop();
             DoorNegativeX.GetComponent<DoorOpener>().Open();
         }
         isCleared = true;
