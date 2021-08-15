@@ -302,6 +302,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4029195746778368333}
     - target: {fileID: 1656158529, guid: 59ccd1309cd2ac94a8700faf3ab6a78d, type: 3}
+      propertyPath: attackRange
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1656158529, guid: 59ccd1309cd2ac94a8700faf3ab6a78d, type: 3}
       propertyPath: damagesound
       value: 
       objectReference: {fileID: 9193228802034814092}
