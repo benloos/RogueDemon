@@ -126,10 +126,23 @@ public class RoomManager : MonoBehaviour
         }
         if (bossRoom)
         {
-            bossMusic.Stop();
+            StartCoroutine(BossMusicEnd());
             DoorNegativeX.GetComponent<DoorOpener>().Open();
         }
         isCleared = true;
+    }
+
+    IEnumerator BossMusicEnd()
+    {
+        float currentTime = 0;
+        while (currentTime < 2f)
+        {
+            currentTime += Time.deltaTime;
+            bossMusic.volume = Mathf.Lerp(1f, 0f, currentTime/2);
+            yield return null;
+        }
+        bossMusic.Stop();
+        yield break;
     }
 
 }
