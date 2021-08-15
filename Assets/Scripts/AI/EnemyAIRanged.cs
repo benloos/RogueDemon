@@ -116,6 +116,7 @@ public class EnemyAIRanged : MonoBehaviour
 
         CastObject.transform.LookAt(player);
         FireboltParticle.Play();
+        FireboltSound.pitch = (Random.Range(0.6f, .9f));
         FireboltSound.Play();
         anim.SetBool("HasAttacked", true);
     }
